@@ -1,12 +1,6 @@
-let form_cadastro = document.getElementById("form-cadastro");
-let input_nome = document.getElementById("input-nome");
-let input_username = document.getElementById("input-username");
-let input_senha = document.getElementById("input-senha");
-
-
 async function postJSON(data) {
     try {
-        const response = await fetch("http://192.168.89.186:8087/api/v1/users/", {
+        const response = await fetch("http://localhost:8087/api/v1/users/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -21,14 +15,14 @@ async function postJSON(data) {
     }
 }
 
-
-
-
-
-
 const cadastro = {
 
-    function: form_cadastro.addEventListener("submit", (event) => {
+    divCadastro: document.getElementById("div_cadastro"),
+    formCadastro: document.getElementById("form-cadastro"),
+    inputNome: document.getElementById("input-nome"),
+    inputUsername: document.getElementById("input-username"),
+    inputSenha: document.getElementById("input-senha"),
+    function: document.getElementById("form-cadastro").addEventListener("submit", (event) => {
         event.preventDefault();
 
         let dados = {
