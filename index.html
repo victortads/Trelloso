@@ -10,42 +10,75 @@
 </head>
 
 <body>
-    <h1>Trelloso Client</h1>
+    <div id="body">
+        <div id="header" class="displayOn">
+            <h1>Trelloso Client</h1>
+            <button id="btn-rmtoken"> Remover Token</button>
+        </div>
 
-    <div id="div_cadastro" class="displayNone">
-        <form action="" id="form-cadastro">
+        <div id="nav" class="displayOn">
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+        </div>
+
+        <div id="content" class="displayOn">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad tempora dolorum commodi atque id qui, natus
+                quia temporibus tenetur porro.</p>
+        </div>
+
+
+        <div id="div_cadastro" class="displayNone">
+            <form action="" id="form-cadastro">
+                <div class="campos-form">
+                    <label> Nome </label>
+                    <input type="text" id="input-nome">
+                </div>
+
+                <div class="campos-form">
+                    <label> Username </label>
+                    <input type="text" id="input-username">
+                </div>
+
+                <div class="campos-form">
+                    <label> Senha </label>
+                    <input type="text" id="input-senha">
+                </div>
+
+                <button type="submit" id="btn-create">Salvar</button>
+
+            </form>
             <div>
-                <label for=""> Nome: </label>
-                <input type="text" id="input-nome">
+                <button id="btn-withLogin">Possui login?</button>
             </div>
+        </div>
 
+        <div id="div_login" class="displayNone">
+            <form action="" id="form-login">
+                <h3>Login</h3>
+                <div class="campos-form">
+                    <label> Username </label>
+                    <input type="text" id="input-user_login" name="username">
+                </div>
+
+                <div class="campos-form">
+                    <label> Senha </label>
+                    <input type="text" id="input-passsword_login" name="password">
+                </div>
+                <button type="submit" id="btn-login">Login</button>
+
+            </form>
             <div>
-                <label for=""> Username: </label>
-                <input type="text" id="input-username">
+                <button id="btn-noLogin">Não possui login?</button>
             </div>
-
-            <div>
-                <label for=""> Senha: </label>
-                <input type="text" id="input-senha">
-            </div>
-
-            <button type="submit" id="btn-create">Salvar</button>
-        </form>
-    </div>
-
-    <div id="div_login" class="displayNone">
-        <form action="" id="form-login">
-            <div>
-                <label for=""> Username: </label>
-                <input type="text" id="input-user_login" name="username">
-            </div>
-
-            <div>
-                <label for=""> Senha: </label>
-                <input type="text" id="input-passsword_login" name="password">
-            </div>
-            <button type="submit" id="btn-login">Confirmar</button>
-        </form>
+        </div>
     </div>
 </body>
 

@@ -1,3 +1,6 @@
+import login from './login.js'
+
+
 async function postJSON(data) {
     try {
         const response = await fetch("http://localhost:8087/api/v1/users/", {
@@ -7,7 +10,7 @@ async function postJSON(data) {
             },
             body: JSON.stringify(data),
         });
-
+        
         const result = await response.json();
         console.log("Success:", result);
     } catch (error) {
@@ -16,7 +19,7 @@ async function postJSON(data) {
 }
 
 const cadastro = {
-
+    
     divCadastro: document.getElementById("div_cadastro"),
     formCadastro: document.getElementById("form-cadastro"),
     inputNome: document.getElementById("input-nome"),
@@ -24,14 +27,21 @@ const cadastro = {
     inputSenha: document.getElementById("input-senha"),
     function: document.getElementById("form-cadastro").addEventListener("submit", (event) => {
         event.preventDefault();
-
+        
         let dados = {
-            name: input_nome.value,
-            username: input_username.value,
-            password: input_senha.value
+            name: document.getElementById("input-nome").value,
+            username: document.getElementById("input-username").value,
+            password: document.getElementById("input-senha").value
         }
+        
         postJSON(dados);
 
+    }),
+    function: document.querySelector("#btn-withLogin").addEventListener("click", ()=>{
+        login.divLogin.classList.remove("displayNone");
+        login.divLogin.classList.add("displayOn");
+        document.querySelector("#div_cadastro").classList.remove("displayOn");
+        document.querySelector("#div_cadastro").classList.add("displayNone");
     })
 
 }

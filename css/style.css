@@ -9,9 +9,74 @@
 }
 
 body {
-  font: 1.5rem 'Open Sans', sans-serif;
+  font: 1.5rem "Open Sans", sans-serif;
   line-height: 1.5;
   color: #777;
+  background-color: aliceblue;
+}
+
+#body {
+  height: 100%;
+  width: 100vw;
+  display: grid;
+  grid-template-areas:
+    "header header header header header"
+    "nav content content content content"
+    "nav content content content content"
+    "nav content content content content";
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  grid-area: header;
+  background-color: #8ca0ff;
+}
+
+#nav {
+  grid-area: nav;
+  background-color: #ffa08c;
+}
+
+#content {
+  grid-area: content;
+  background-color: #ffff64;
+}
+
+#div_login {
+  padding: 20px;
+  border: 1px solid grey;
+  background-color: #212038;
+  color: white;
+}
+
+#form-login {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+#div_cadastro {
+  padding: 2rem;
+  background-color: #8ca0ff;
+  color: black;
+}
+
+#form-cadastro {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.campos-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#btn-login {
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .displayNone {
