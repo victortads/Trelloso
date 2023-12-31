@@ -166,6 +166,8 @@ body {
 }
 
 /* TERMINO FORMATAÇÃO DOS BOTÕES */
+
+/* FORMATAÇÃO DAS CLASSES DE CONTROLE DE EXIBIÇÃO */
 .displayNone {
   display: none;
 }
@@ -173,3 +175,4 @@ body {
 .displayOn {
   display: block;
 }
+/* TERMINO FORMATAÇÃO DAS CLASSES DE CONTROLE DE EXIBIÇÃO */

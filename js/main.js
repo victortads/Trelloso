@@ -1,15 +1,18 @@
+import cadastro from "./cadastro.js";
 import login from "./login.js";
 
 let verify = localStorage.getItem("token");
 let nav = document.querySelector("#nav");
 let content = document.querySelector("#content");
+let views = Array.from(document.getElementsByClassName('view'));
 
 // Adiciona a função de remover o token do local storage para que o usuário seja deslogado
 document.querySelector("#btn-rmtoken").addEventListener("click", () => {
   if (localStorage.getItem("token")) {
     localStorage.removeItem("token");
-    alert("Token apagado!");
     getToken();
+    alert("Token apagado!");
+    document.querySelector('#welcome-user').innerHTML = '';
   }
 });
 
@@ -47,8 +50,19 @@ async function readUser(token) {
       var textEl = document.createTextNode("Bem vindo, " + result.name);
       p.appendChild(textEl);
       div.appendChild(p);
+      div.id = 'welcome-user';
 
       document.querySelector("#div-user").appendChild(div);
+      if(login.divLogin.classList.contains('displayOn')){
+        login.divLogin.classList.remove('displayOn');
+        login.divLogin.classList.add('displayNone');
+        if(nav.classList.contains('displayNone') && content.classList.contains('displayNone')){
+          nav.classList.remove('displayNone');
+          nav.classList.add('displayOn');
+          content.classList.remove('displayNone');
+          content.classList.add('displayOn');
+        }
+      }
     }
   } catch (error) {
     console.error("Error:", error);
@@ -56,3 +70,22 @@ async function readUser(token) {
 }
 
 readUser(localStorage.getItem("token"));
+
+views.forEach((view) => {
+  view.addEventListener("click", () => {  
+
+    if (cadastro.inputSenha.type === "password") {
+      cadastro.inputSenha.type = "text";
+    } else {
+      cadastro.inputSenha.type = "password";
+    }
+
+    if (login.inputSenha.type === "password") {
+      login.inputSenha.type = "text";
+    } else {
+      login.inputSenha.type = "password";
+    }
+  });
+});
+
+export default readUser;
