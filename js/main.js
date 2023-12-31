@@ -1,9 +1,10 @@
 import login from "./login.js";
-console.log("main module!");
 
 let verify = localStorage.getItem("token");
 let nav = document.querySelector("#nav");
 let content = document.querySelector("#content");
+
+// Adiciona a função de remover o token do local storage para que o usuário seja deslogado
 document.querySelector("#btn-rmtoken").addEventListener("click", () => {
   if (localStorage.getItem("token")) {
     localStorage.removeItem("token");
@@ -12,6 +13,7 @@ document.querySelector("#btn-rmtoken").addEventListener("click", () => {
   }
 });
 
+// Irá buscar o token no local storage para verificar se o usuário está logado
 function getToken() {
   if (!verify) {
     alert("Usuário não logado");
@@ -26,6 +28,7 @@ function getToken() {
 
 getToken();
 
+// Faz requisição do usuário logado para recuperar seu nome e adicionar no header da página
 async function readUser(token) {
   try {
     const response = await fetch("http://localhost:8087/api/v1/users/me", {
@@ -52,5 +55,4 @@ async function readUser(token) {
   }
 }
 
-let token = localStorage.getItem("token");
-readUser(token);
+readUser(localStorage.getItem("token"));
