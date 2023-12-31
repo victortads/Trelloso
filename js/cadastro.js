@@ -32,6 +32,7 @@ const cadastro = {
       let dados = {
         name: document.getElementById("input-nome").value,
         username: document.getElementById("input-username").value,
+        avatar_url: document.getElementById('input-avatarurl').value,
         password: document.getElementById("input-senha").value,
       };
 
