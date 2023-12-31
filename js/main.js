@@ -45,7 +45,7 @@ async function readUser(token) {
       p.appendChild(textEl);
       div.appendChild(p);
 
-      document.querySelector("#header").appendChild(div);
+      document.querySelector("#div-user").appendChild(div);
     }
   } catch (error) {
     console.error("Error:", error);

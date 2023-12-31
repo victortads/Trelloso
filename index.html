@@ -1,85 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Trelloso</title>
     <script defer src="js/main.js" type="module"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="body">
-        <div id="header" class="displayOn">
-            <h1>Trelloso Client</h1>
-            <button id="btn-rmtoken"> Remover Token</button>
+      <div id="header" class="displayOn">
+        <h1>Trelloso Client</h1>
+        <div id="div-user">
+          <button id="btn-rmtoken">
+            Sair
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/657/657059.png"
+              alt=""
+            />
+          </button>
         </div>
+      </div>
 
-        <div id="nav" class="displayOn">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ipsa!</p>
+      <div id="nav" class="displayOn">
+        <ul>
+          <li><a href="">Quadros</a></li>
+        </ul>
+      </div>
+
+      <div id="content" class="displayOn">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad tempora
+          dolorum commodi atque id qui, natus quia temporibus tenetur porro.
+        </p>
+      </div>
+
+      <div id="div_cadastro" class="displayNone">
+        <form action="" id="form-cadastro">
+          <h3>Cadastro</h3>
+          <div class="campos-form">
+            <label class="label-form">nome</label>
+            <input type="text" id="input-nome" class="input-form" />
+          </div>
+
+          <div class="campos-form">
+            <label class="label-form">username</label>
+            <input type="text" id="input-username" class="input-form" />
+          </div>
+
+          <div class="campos-form">
+            <label class="label-form">senha</label>
+            <input type="text" id="input-senha" class="input-form" />
+          </div>
+
+          <button type="submit" id="btn-create" class="submit-form">
+            Salvar
+          </button>
+        </form>
+        <div>
+          <button id="btn-withLogin" class="alternative">Possui login?</button>
         </div>
+      </div>
 
-        <div id="content" class="displayOn">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad tempora dolorum commodi atque id qui, natus
-                quia temporibus tenetur porro.</p>
+      <div id="div_login" class="displayNone">
+        <form action="" id="form-login">
+          <h3>Login</h3>
+          <div class="campos-form">
+            <label class="label-form">username</label>
+            <input
+              type="text"
+              id="input-user_login"
+              name="username"
+              class="input-form"
+            />
+          </div>
+
+          <div class="campos-form">
+            <label class="label-form">senha</label>
+            <input
+              type="text"
+              id="input-passsword_login"
+              name="password"
+              class="input-form"
+            />
+          </div>
+          <button type="submit" id="btn-login" class="submit-form">
+            Login
+          </button>
+        </form>
+        <div>
+          <button id="btn-noLogin" class="alternative">
+            Não possui login?
+          </button>
         </div>
-
-
-        <div id="div_cadastro" class="displayNone">
-            <form action="" id="form-cadastro">
-                <div class="campos-form">
-                    <label> Nome </label>
-                    <input type="text" id="input-nome">
-                </div>
-
-                <div class="campos-form">
-                    <label> Username </label>
-                    <input type="text" id="input-username">
-                </div>
-
-                <div class="campos-form">
-                    <label> Senha </label>
-                    <input type="text" id="input-senha">
-                </div>
-
-                <button type="submit" id="btn-create">Salvar</button>
-
-            </form>
-            <div>
-                <button id="btn-withLogin">Possui login?</button>
-            </div>
-        </div>
-
-        <div id="div_login" class="displayNone">
-            <form action="" id="form-login">
-                <h3>Login</h3>
-                <div class="campos-form">
-                    <label> Username </label>
-                    <input type="text" id="input-user_login" name="username">
-                </div>
-
-                <div class="campos-form">
-                    <label> Senha </label>
-                    <input type="text" id="input-passsword_login" name="password">
-                </div>
-                <button type="submit" id="btn-login">Login</button>
-
-            </form>
-            <div>
-                <button id="btn-noLogin">Não possui login?</button>
-            </div>
-        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
