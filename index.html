@@ -11,21 +11,27 @@
 
   <body>
     <div id="body">
-
       <div id="header" class="displayOn">
-        <h1>Trelloso Client</h1>
+        <button id="home"><h1>Trelloso</h1></button>
         <div id="div-user">
-          <button id="btn-rmtoken">
+          <button id="btn-rmtoken" class="displayNone">
             Sair
             <img
               src="https://cdn-icons-png.flaticon.com/128/657/657059.png"
               alt=""
             />
           </button>
-          <img src="" alt="Imagem do usuário" id="image-user" class="displayNone"/>
+          <div id="user">
+            <img
+              src=""
+              alt="Imagem do usuário"
+              id="image-user"
+              class="displayNone"
+            />
+          </div>
+          <button id="user-show" class="displayNone"></button>
         </div>
       </div>
-
 
       <div id="nav" class="displayOn">
         <ul>
@@ -33,14 +39,12 @@
         </ul>
       </div>
 
-
       <div id="content" class="displayOn">
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad tempora
           dolorum commodi atque id qui, natus quia temporibus tenetur porro.
         </p>
       </div>
-
 
       <div id="div_cadastro" class="displayNone">
         <form action="" id="form-cadastro">
@@ -74,7 +78,6 @@
         </div>
       </div>
 
-
       <div id="div_login" class="displayNone">
         <form action="" id="form-login">
           <h3>Login</h3>
@@ -107,9 +110,28 @@
         </div>
       </div>
 
-
+      <div id="atualizar-cadastro" class="displayNone">
+        <form id="form-atualizar">
+          <h3>Atualizar Cadastro</h3>
+          <div class="campos-form">
+            <label class="label-form">Nome</label>
+            <input id="input-atualizar-nome" type="text" class="input-form"/>
+          </div>
+          <div class="campos-form">
+            <label class="label-form">Username</label>
+            <input id="input-atualizar-username" type="text" class="input-form"/>
+          </div>
+          <div class="campos-form">
+            <label class="label-form">Avatar Url</label>
+            <input id="input-atualizar-url" type="text" class="input-form"/>
+          </div>
+          <div class="campos-form">
+            <label class="label-form">senha</label>
+            <input id="input-atualizar-senha" type="text" class="input-form"/>
+          </div>
+          <button id="btn-atualizar" type="submit">Atualizar</button>
+        </form>
+      </div>
     </div>
-
-
   </body>
 </html>

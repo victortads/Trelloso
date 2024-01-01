@@ -1,5 +1,6 @@
 import cadastro from "./cadastro.js";
 import login from "./login.js";
+import user from "./atualizar.js";
 
 let verify = localStorage.getItem("token");
 let nav = document.querySelector("#nav");
@@ -12,9 +13,20 @@ document.querySelector("#btn-rmtoken").addEventListener("click", () => {
     localStorage.removeItem("token");
     getToken();
     alert("Token apagado!");
-    document.querySelector("#welcome-user").innerHTML = "";
     document.getElementById("image-user").classList.remove("displayOn");
     document.getElementById("image-user").classList.add("displayNone");
+    document.getElementById("btn-rmtoken").classList.remove("displayOn");
+    document.getElementById("btn-rmtoken").classList.add("displayNone");
+    document.getElementById("user-show").classList.remove("displayOn");
+    document.getElementById("user-show").classList.add("displayNone");
+    document.getElementById("user-show").innerText = "";
+    content.classList.remove("displayOn");
+    content.classList.add("displayNone");
+
+    if (document.getElementById("atualizar-cadastro").classList.contains("displayOn")) {
+      document.getElementById("atualizar-cadastro").classList.remove("displayOn");
+      document.getElementById("atualizar-cadastro").classList.add("displayNone");
+    }
   }
 });
 
@@ -47,17 +59,16 @@ async function readUser(token) {
     const result = await response.json();
     console.log("Success:", result.avatar_url);
     if (result.name) {
-      let div = document.createElement("div");
-      let p = document.createElement("p");
-      let textEl = document.createTextNode("Bem vindo, " + result.name);
-      p.appendChild(textEl);
-      div.appendChild(p);
-      div.id = "welcome-user";
+      let textEl = document.createTextNode(result.name);
+      document.getElementById("user-show").appendChild(textEl);
 
       document.getElementById("image-user").classList.remove("displayNone");
       document.getElementById("image-user").classList.add("displayOn");
       document.getElementById("image-user").src = result.avatar_url;
-      document.querySelector("#div-user").appendChild(div);
+      document.getElementById("btn-rmtoken").classList.remove("displayNone");
+      document.getElementById("btn-rmtoken").classList.add("displayOn");
+      document.getElementById("user-show").classList.remove("displayNone");
+      document.getElementById("user-show").classList.add("displayOn");
 
       if (login.divLogin.classList.contains("displayOn")) {
         login.divLogin.classList.remove("displayOn");
@@ -80,6 +91,7 @@ async function readUser(token) {
 
 readUser(localStorage.getItem("token"));
 
+// Adiciona a função de visualizar senha
 views.forEach((view) => {
   view.addEventListener("click", () => {
     if (cadastro.inputSenha.type === "password") {
