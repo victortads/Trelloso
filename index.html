@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Trelloso</title>
     <script defer src="js/main.js" type="module"></script>
+    <script defer src="js/quadros.js" type="module"></script>
   </head>
 
   <body>
     <div id="body">
       <div id="header" class="displayOn">
-        <button id="home"><h1>Trelloso</h1></button>
+        <button id="home">
+          <h1>Trelloso</h1>
+          <!-- <img src="./assets/logoHome.jpg" alt="" /> -->
+        </button>
         <div id="div-user">
           <button id="btn-rmtoken" class="displayNone">
             Sair
@@ -35,15 +39,29 @@
 
       <div id="nav" class="displayOn">
         <ul>
-          <li><a href="">Quadros</a></li>
+          <li><button id="boards">Quadros</button></li>
+          <li><button>Favoritos</button></li>
         </ul>
       </div>
 
       <div id="content" class="displayOn">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad tempora
-          dolorum commodi atque id qui, natus quia temporibus tenetur porro.
-        </p>
+        <div id="boards-content" class="displayNone"></div>
+      </div>
+
+      <div id="div-createCard" class="displayNone" >
+        <form action="" id="form-addBoard">
+          <input
+            type="text"
+            id="board-name"
+            placeholder="Nome do quadro"
+          />
+          <input
+            type="text"
+            id="board-color"
+            placeholder="Cor do quadro"
+          />
+          <input type="submit" value="Adicionar" >
+        </form>
       </div>
 
       <div id="div_cadastro" class="displayNone">
@@ -115,19 +133,23 @@
           <h3>Atualizar Cadastro</h3>
           <div class="campos-form">
             <label class="label-form">Nome</label>
-            <input id="input-atualizar-nome" type="text" class="input-form"/>
+            <input id="input-atualizar-nome" type="text" class="input-form" />
           </div>
           <div class="campos-form">
             <label class="label-form">Username</label>
-            <input id="input-atualizar-username" type="text" class="input-form"/>
+            <input
+              id="input-atualizar-username"
+              type="text"
+              class="input-form"
+            />
           </div>
           <div class="campos-form">
             <label class="label-form">Avatar Url</label>
-            <input id="input-atualizar-url" type="text" class="input-form"/>
+            <input id="input-atualizar-url" type="text" class="input-form" />
           </div>
           <div class="campos-form">
             <label class="label-form">senha</label>
-            <input id="input-atualizar-senha" type="text" class="input-form"/>
+            <input id="input-atualizar-senha" type="text" class="input-form" />
           </div>
           <button id="btn-atualizar" type="submit">Atualizar</button>
         </form>
