@@ -28,6 +28,7 @@ document.querySelector("#btn-rmtoken").addEventListener("click", () => {
     login.divLogin.classList.add("displayOn");
     content.classList.remove("displayOn");
     content.classList.add("displayNone");
+    document.getElementById("boards-content").innerHTML = "";
 
 
     if (document.getElementById("atualizar-cadastro").classList.contains("displayOn")) {

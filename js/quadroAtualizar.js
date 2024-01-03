@@ -5,10 +5,10 @@ export default async function adicionarFavorito() {
 
     favorito.forEach(element => {
         element.addEventListener("click", (event) => {
-            event.target.parentNode.childNodes[1].classList.remove("displayNone");
-            event.target.parentNode.childNodes[1].classList.add("displayOn");
-            event.target.parentNode.childNodes[2].classList.remove("displayOn");
-            event.target.parentNode.childNodes[2].classList.add("displayNone");
+            event.target.parentNode.childNodes[3].classList.remove("displayNone");
+            event.target.parentNode.childNodes[3].classList.add("displayOn");
+            event.target.parentNode.childNodes[5].classList.remove("displayOn");
+            event.target.parentNode.childNodes[5].classList.add("displayNone");
             let data = {
                 name: event.target.parentNode.childNodes[0].innerText,
                 color: event.target.parentNode.style.backgroundColor,
@@ -20,10 +20,10 @@ export default async function adicionarFavorito() {
 
     noFavorito.forEach(element => {
         element.addEventListener("click", (event) => {
-            event.target.parentNode.childNodes[1].classList.remove("displayOn");
-            event.target.parentNode.childNodes[1].classList.add("displayNone");
-            event.target.parentNode.childNodes[2].classList.remove("displayNone");
-            event.target.parentNode.childNodes[2].classList.add("displayOn");
+            event.target.parentNode.childNodes[3].classList.remove("displayOn");
+            event.target.parentNode.childNodes[3].classList.add("displayNone");
+            event.target.parentNode.childNodes[5].classList.remove("displayNone");
+            event.target.parentNode.childNodes[5].classList.add("displayOn");
 
 
 
