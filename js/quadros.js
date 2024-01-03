@@ -1,3 +1,5 @@
+import adicionarFavorito from "./quadroAtualizar.js";
+
 let boardsContent = document.getElementById("boards-content");
 let board = document.getElementById("boards");
 
@@ -26,24 +28,21 @@ async function getBoards(token) {
 // Carrega os quadros na página de quadros
 board.addEventListener("click", async () => {
   try {
-    if (boardsContent.classList.contains("displayOn")) {
-      boardsContent.classList.remove("displayOn");
+    if (boardsContent.classList.contains("displayFlex")) {
+      boardsContent.classList.remove("displayFlex");
       boardsContent.classList.add("displayNone");
     } else {
       boardsContent.classList.remove("displayNone");
-      boardsContent.classList.add("displayOn");
+      boardsContent.classList.add("displayFlex");
     }
 
-    if (
-      document.querySelector("#div-createCard").classList.contains("displayOn")
-    ) {
+    if (document.querySelector("#div-createCard").classList.contains("displayOn")) {
       document.querySelector("#div-createCard").classList.remove("displayOn");
       document.querySelector("#div-createCard").classList.add("displayNone");
     }
-    
+
     await addBoards();
 
-    
   } catch (error) {
     console.error("Error:", error);
   }
@@ -54,16 +53,31 @@ async function addBoards() {
   let boards = await getBoards(localStorage.getItem("token"));
   boards.forEach((element) => {
     let div_board = document.createElement("div");
+    let p = document.createElement('p');
     let conteudo = document.createTextNode(element.name);
-    div_board.appendChild(conteudo);
+    p.appendChild(conteudo);
+    div_board.id = `${element.id}`;
+    div_board.classList.add("boards-format");
+    let star = document.createElement('p');
+    let starEmpty = document.createElement('p');
+    star.appendChild(document.createTextNode("⭐"));
+    star.classList.add('star');
+    starEmpty.classList.add('starEmpty');
+    starEmpty.appendChild(document.createTextNode("✩"));
+    div_board.appendChild(p);
     div_board.style.backgroundColor = `${element.color}`;
     boardsContent.appendChild(div_board);
+    div_board.appendChild(starEmpty);
+    div_board.appendChild(star);
+    star.classList.add("displayNone");
+    starEmpty.classList.add("displayOn");
   });
   let btnAddBoard = document.createElement("button");
   btnAddBoard.appendChild(document.createTextNode("Adicionar quadro"));
   btnAddBoard.id = "btn-addBoard";
   boardsContent.appendChild(btnAddBoard);
   await addBoardButton();
+  await adicionarFavorito();
 }
 
 async function postBoard(data, token) {

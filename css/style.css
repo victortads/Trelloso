@@ -58,6 +58,9 @@ body {
   padding: 1rem;
 }
 
+#user-show{
+  padding: 1rem;
+}
 /* TERMINO FORMATAÇÃO HEADER */
 #nav {
   grid-area: nav;
@@ -202,7 +205,53 @@ body {
   padding: 2px;
 }
 
+#btn-addBoard {
+  padding: 1rem;
+  width: 30rem;
+  height: 15rem;
+  border-radius: 1rem;
+  background-color: #b7b9bd;
+  border: none;
+  cursor: pointer;
+}
+
 /* TERMINO FORMATAÇÃO DOS BOTÕES */
+
+/* FORMATAÇÃO DOS BOARDS */
+
+#boards-content {
+  padding: 1rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.boards-format {
+  position: relative;
+  padding: 1rem;
+  width: 30rem;
+  height: 15rem;
+  border-radius: 1rem;
+}
+
+/* TERMINO FORMATAÇÃO DOS BOARDS */
+
+/* Algumas Formatações de elementos */
+
+.star{
+  position: absolute;
+  top: 80%;
+  left: 90%;
+  cursor: pointer;
+}
+
+.starEmpty{
+  position: absolute;
+  top: 80%;
+  left: 90%;
+  cursor: pointer;
+}
+
+/* Termino de Algumas Formatações de elementos */
 
 /* FORMATAÇÃO DAS CLASSES DE CONTROLE DE EXIBIÇÃO */
 .displayNone {
@@ -211,6 +260,10 @@ body {
 
 .displayOn {
   display: block;
+}
+
+.displayFlex {
+  display: flex;
 }
 
 /* TERMINO FORMATAÇÃO DAS CLASSES DE CONTROLE DE EXIBIÇÃO */

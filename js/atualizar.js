@@ -1,9 +1,7 @@
 let user = document.getElementById("user-show");
 let divAtualizar = document.getElementById("atualizar-cadastro");
 let inputNomeAtualizar = document.getElementById("input-atualizar-nome");
-let inputUsernameAtualizar = document.getElementById(
-  "input-atualizar-username"
-);
+let inputUsernameAtualizar = document.getElementById("input-atualizar-username");
 let inputURLAtualizar = document.getElementById("input-atualizar-url");
 let inputSenhaAtualizar = document.getElementById("input-atualizar-senha");
 let formAtualizar = document.getElementById("form-atualizar");
