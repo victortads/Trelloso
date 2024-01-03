@@ -22,6 +22,8 @@ document.querySelector("#btn-rmtoken").addEventListener("click", () => {
     document.getElementById("user-show").innerText = "";
     content.classList.remove("displayOn");
     content.classList.add("displayNone");
+    login.inputSenha.value = '';
+    login.inputName.value = '';
 
     if (document.getElementById("atualizar-cadastro").classList.contains("displayOn")) {
       document.getElementById("atualizar-cadastro").classList.remove("displayOn");

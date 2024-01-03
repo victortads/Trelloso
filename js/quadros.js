@@ -1,3 +1,4 @@
+let boardsContent = document.getElementById("boards-content");
 let board = document.getElementById("boards");
 
 // Buscar quadros do usuário logado
@@ -25,8 +26,6 @@ async function getBoards(token) {
 // Carrega os quadros na página de quadros
 board.addEventListener("click", async () => {
   try {
-    let boards = await getBoards(localStorage.getItem("token"));
-    let boardsContent = document.getElementById("boards-content");
     if (boardsContent.classList.contains("displayOn")) {
       boardsContent.classList.remove("displayOn");
       boardsContent.classList.add("displayNone");
@@ -41,24 +40,31 @@ board.addEventListener("click", async () => {
       document.querySelector("#div-createCard").classList.remove("displayOn");
       document.querySelector("#div-createCard").classList.add("displayNone");
     }
-    boardsContent.innerHTML = "";
+    
+    await addBoards();
 
-    boards.forEach((element) => {
-      let div_board = document.createElement("div");
-      let conteudo = document.createTextNode(element.name);
-      div_board.appendChild(conteudo);
-      div_board.style.backgroundColor = `${element.color}`;
-      boardsContent.appendChild(div_board);
-    });
-    let btnAddBoard = document.createElement("button");
-    btnAddBoard.appendChild(document.createTextNode("Adicionar quadro"));
-    btnAddBoard.id = "btn-addBoard";
-    boardsContent.appendChild(btnAddBoard);
-    await addBoardButton();
+    
   } catch (error) {
     console.error("Error:", error);
   }
 });
+
+async function addBoards() {
+  boardsContent.innerHTML = "";
+  let boards = await getBoards(localStorage.getItem("token"));
+  boards.forEach((element) => {
+    let div_board = document.createElement("div");
+    let conteudo = document.createTextNode(element.name);
+    div_board.appendChild(conteudo);
+    div_board.style.backgroundColor = `${element.color}`;
+    boardsContent.appendChild(div_board);
+  });
+  let btnAddBoard = document.createElement("button");
+  btnAddBoard.appendChild(document.createTextNode("Adicionar quadro"));
+  btnAddBoard.id = "btn-addBoard";
+  boardsContent.appendChild(btnAddBoard);
+  await addBoardButton();
+}
 
 async function postBoard(data, token) {
   try {
@@ -79,25 +85,17 @@ async function postBoard(data, token) {
 
 async function addBoardButton() {
   try {
-    let btnAddBoard = await document.querySelector("#btn-addBoard");
+    let btnAddBoard = document.querySelector("#btn-addBoard");
 
     if (btnAddBoard) {
       btnAddBoard.addEventListener("click", () => {
         if (
-          document
-            .querySelector("#div-createCard")
-            .classList.contains("displayOn")
+          document.querySelector("#div-createCard").classList.contains("displayOn")
         ) {
-          document
-            .querySelector("#div-createCard")
-            .classList.remove("displayOn");
-          document
-            .querySelector("#div-createCard")
-            .classList.add("displayNone");
+          document.querySelector("#div-createCard").classList.remove("displayOn");
+          document.querySelector("#div-createCard").classList.add("displayNone");
         } else {
-          document
-            .querySelector("#div-createCard")
-            .classList.remove("displayNone");
+          document.querySelector("#div-createCard").classList.remove("displayNone");
           document.querySelector("#div-createCard").classList.add("displayOn");
         }
       });
@@ -109,14 +107,19 @@ async function addBoardButton() {
 
 let formBoard = document.getElementById("form-addBoard");
 
-formBoard.addEventListener("submit", (event) => {
+formBoard.addEventListener("submit", async (event) => {
   event.preventDefault();
-  let boardData = {
-    name: document.getElementById("board-name").value,
-    color: document.getElementById("board-color").value,
-    favorito: false,
-  };
-  document.querySelector("#div-createCard").classList.remove("displayOn");
-  document.querySelector("#div-createCard").classList.add("displayNone");
-  postBoard(boardData, localStorage.getItem("token"));
+  try {
+    let boardData = {
+      name: document.getElementById("board-name").value,
+      color: document.getElementById("board-color").value,
+      favorito: false,
+    };
+    document.querySelector("#div-createCard").classList.remove("displayOn");
+    document.querySelector("#div-createCard").classList.add("displayNone");
+    await postBoard(boardData, localStorage.getItem("token"));
+    await addBoards();
+  } catch (error) {
+    console.error("Error:", error);
+  }
 });

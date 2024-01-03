@@ -24,9 +24,7 @@ const cadastro = {
   inputUsername: document.getElementById("input-username"),
   inputSenha: document.getElementById("input-senha"),
   // Trata com os eventos de submissão do formulário de cadastro
-  function: document
-    .getElementById("form-cadastro")
-    .addEventListener("submit", (event) => {
+  function: document.getElementById("form-cadastro").addEventListener("submit", (event) => {
       event.preventDefault();
 
       let dados = {
@@ -37,6 +35,10 @@ const cadastro = {
       };
 
       postJSON(dados);
+      document.getElementById("div_cadastro").classList.remove("displayOn");
+      document.getElementById("div_cadastro").classList.add("displayNone");
+      login.divLogin.classList.remove("displayNone");
+      login.divLogin.classList.add("displayOn");
     }),
   // Transfere para o formulário de login quando o usuário já possui cadastro
   function: document

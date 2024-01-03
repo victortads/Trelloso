@@ -1,159 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="./assets/logo.png" />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Trelloso</title>
-    <script defer src="js/main.js" type="module"></script>
-    <script defer src="js/quadros.js" type="module"></script>
-  </head>
 
-  <body>
-    <div id="body">
-      <div id="header" class="displayOn">
-        <button id="home">
-          <h1>Trelloso</h1>
-          <!-- <img src="./assets/logoHome.jpg" alt="" /> -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./assets/logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Trelloso</title>
+  <script defer src="js/main.js" type="module"></script>
+  <script defer src="js/quadros.js" type="module"></script>
+</head>
+
+<body>
+  <div id="body">
+    <div id="header" class="displayOn">
+      <button id="home">
+        <h1>Trelloso</h1>
+        <!-- <img src="./assets/logoHome.jpg" alt="" /> -->
+      </button>
+      <div id="div-user">
+        <button id="btn-rmtoken" class="displayNone">
+          Sair
+          <img src="https://cdn-icons-png.flaticon.com/128/657/657059.png" alt="" />
         </button>
-        <div id="div-user">
-          <button id="btn-rmtoken" class="displayNone">
-            Sair
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/657/657059.png"
-              alt=""
-            />
-          </button>
-          <div id="user">
-            <img
-              src=""
-              alt="Imagem do usuário"
-              id="image-user"
-              class="displayNone"
-            />
-          </div>
-          <button id="user-show" class="displayNone"></button>
+        <div id="user">
+          <img src="" alt="Imagem do usuário" id="image-user" class="displayNone" />
         </div>
-      </div>
-
-      <div id="nav" class="displayOn">
-        <ul>
-          <li><button id="boards">Quadros</button></li>
-          <li><button>Favoritos</button></li>
-        </ul>
-      </div>
-
-      <div id="content" class="displayOn">
-        <div id="boards-content" class="displayNone"></div>
-      </div>
-
-      <div id="div-createCard" class="displayNone" >
-        <form action="" id="form-addBoard">
-          <input
-            type="text"
-            id="board-name"
-            placeholder="Nome do quadro"
-          />
-          <input
-            type="text"
-            id="board-color"
-            placeholder="Cor do quadro"
-          />
-          <input type="submit" value="Adicionar" >
-        </form>
-      </div>
-
-      <div id="div_cadastro" class="displayNone">
-        <form action="" id="form-cadastro">
-          <h3>Cadastro</h3>
-          <div class="campos-form">
-            <label class="label-form">nome</label>
-            <input type="text" id="input-nome" class="input-form" />
-          </div>
-
-          <div class="campos-form">
-            <label class="label-form">username</label>
-            <input type="text" id="input-username" class="input-form" />
-          </div>
-
-          <div class="campos-form">
-            <label class="label-form">Avatar URL</label>
-            <input type="text" id="input-avatarurl" class="input-form" />
-          </div>
-
-          <div class="campos-form">
-            <label class="label-form">senha <span class="view">👀</span></label>
-            <input type="password" id="input-senha" class="input-form" />
-          </div>
-
-          <button type="submit" id="btn-create" class="submit-form">
-            Salvar
-          </button>
-        </form>
-        <div>
-          <button id="btn-withLogin" class="alternative">Possui login?</button>
-        </div>
-      </div>
-
-      <div id="div_login" class="displayNone">
-        <form action="" id="form-login">
-          <h3>Login</h3>
-          <div class="campos-form">
-            <label class="label-form">username</label>
-            <input
-              type="text"
-              id="input-user_login"
-              name="username"
-              class="input-form"
-            />
-          </div>
-          <div class="campos-form">
-            <label class="label-form">senha <span class="view">👀</span></label>
-            <input
-              type="password"
-              id="input-passsword_login"
-              name="password"
-              class="input-form"
-            />
-          </div>
-          <button type="submit" id="btn-login" class="submit-form">
-            Login
-          </button>
-        </form>
-        <div>
-          <button id="btn-noLogin" class="alternative">
-            Não possui login?
-          </button>
-        </div>
-      </div>
-
-      <div id="atualizar-cadastro" class="displayNone">
-        <form id="form-atualizar">
-          <h3>Atualizar Cadastro</h3>
-          <div class="campos-form">
-            <label class="label-form">Nome</label>
-            <input id="input-atualizar-nome" type="text" class="input-form" />
-          </div>
-          <div class="campos-form">
-            <label class="label-form">Username</label>
-            <input
-              id="input-atualizar-username"
-              type="text"
-              class="input-form"
-            />
-          </div>
-          <div class="campos-form">
-            <label class="label-form">Avatar Url</label>
-            <input id="input-atualizar-url" type="text" class="input-form" />
-          </div>
-          <div class="campos-form">
-            <label class="label-form">senha</label>
-            <input id="input-atualizar-senha" type="text" class="input-form" />
-          </div>
-          <button id="btn-atualizar" type="submit">Atualizar</button>
-        </form>
+        <button id="user-show" class="displayNone"></button>
       </div>
     </div>
-  </body>
+
+    <div id="nav" class="displayOn">
+      <ul>
+        <li><button id="boards">Quadros</button></li>
+        <li><button>Favoritos</button></li>
+      </ul>
+    </div>
+
+    <div id="content" class="displayOn">
+      <div id="boards-content" class="displayNone"></div>
+    </div>
+
+    <div id="div-createCard" class="displayNone">
+      <form action="" id="form-addBoard">
+        <input type="text" id="board-name" placeholder="Nome do quadro" />
+        <input type="text" id="board-color" placeholder="Cor do quadro" />
+        <input type="submit" value="Adicionar">
+      </form>
+    </div>
+
+    <div id="div_cadastro" class="displayNone">
+      <form action="" id="form-cadastro">
+        <h3>Cadastro</h3>
+        <div class="campos-form">
+          <label class="label-form">nome</label>
+          <input type="text" id="input-nome" class="input-form" />
+        </div>
+
+        <div class="campos-form">
+          <label class="label-form">username</label>
+          <input type="text" id="input-username" class="input-form" />
+        </div>
+
+        <div class="campos-form">
+          <label class="label-form">Avatar URL</label>
+          <input type="text" id="input-avatarurl" class="input-form" />
+        </div>
+
+        <div class="campos-form">
+          <label class="label-form">senha <span class="view">👀</span></label>
+          <input type="password" id="input-senha" class="input-form" />
+        </div>
+
+        <button type="submit" id="btn-create" class="submit-form">
+          Salvar
+        </button>
+      </form>
+      <div>
+        <button id="btn-withLogin" class="alternative">Possui login?</button>
+      </div>
+    </div>
+
+    <div id="div_login" class="displayNone">
+      <form action="" id="form-login">
+        <h3>Login</h3>
+        <div class="campos-form">
+          <label class="label-form">username</label>
+          <input type="text" id="input-user_login" name="username" class="input-form" />
+        </div>
+        <div class="campos-form">
+          <label class="label-form">senha <span class="view">👀</span></label>
+          <input type="password" id="input-passsword_login" name="password" class="input-form" />
+        </div>
+        <button type="submit" id="btn-login" class="submit-form">
+          Login
+        </button>
+      </form>
+      <div>
+        <button id="btn-noLogin" class="alternative">
+          Não possui login?
+        </button>
+      </div>
+    </div>
+
+    <div id="atualizar-cadastro" class="displayNone">
+      <form id="form-atualizar">
+        <h3>Atualizar Cadastro</h3>
+        <div class="campos-form">
+          <label class="label-form">Nome</label>
+          <input id="input-atualizar-nome" type="text" class="input-form" />
+        </div>
+        <div class="campos-form">
+          <label class="label-form">Username</label>
+          <input id="input-atualizar-username" type="text" class="input-form" />
+        </div>
+        <div class="campos-form">
+          <label class="label-form">Avatar Url</label>
+          <input id="input-atualizar-url" type="text" class="input-form" />
+        </div>
+        <div class="campos-form">
+          <label class="label-form">senha</label>
+          <input id="input-atualizar-senha" type="text" class="input-form" />
+        </div>
+        <button id="btn-atualizar" type="submit">Atualizar</button>
+      </form>
+    </div>
+  </div>
+</body>
+
 </html>

@@ -25,6 +25,7 @@ const login = {
   divLogin: document.getElementById("div_login"),
   formLogin: document.getElementById("form-login"),
   inputSenha: document.getElementById('input-passsword_login'),
+  inputName: document.getElementById('input-user_login'),
   // Envia os dados do login para o backend
   function: document
     .getElementById("form-login")
