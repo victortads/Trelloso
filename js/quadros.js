@@ -1,4 +1,5 @@
 import adicionarFavorito from "./quadroAtualizar.js";
+import lista from "./lista.js";
 
 let boardsContent = document.getElementById("boards-content");
 let board = document.getElementById("boards");
@@ -7,17 +8,33 @@ let boardsList = "";
 // Adiciona eventListener para exibir os quadros
 async function exibirBoard() {
   boardsList = Array.from(document.getElementsByClassName("boards-format"));
-boardsList.forEach(element => {
+  boardsList.forEach(element => {
 
-  element.addEventListener("click", (event) =>{
-    if(event.target.classList.contains("positionAbsolute")){
-      event.target.classList.remove("positionAbsolute")
-    } else{
-      event.target.classList.add("positionAbsolute")
-    }
+    element.addEventListener("click", async (event) => {
+
+      const PositionAbsolute = event.target.classList.contains("positionAbsolute");
+      const DisplayFlex = event.target.classList.contains("displayFlex");
+      if (PositionAbsolute && DisplayFlex) {
+        event.target.classList.remove("positionAbsolute");
+        console.log("PARA REMOVER POSITION " + PositionAbsolute);
+        const childNode = event.target.childNodes[3];
+        if (childNode) {
+          childNode.classList.remove("displayOn");
+          childNode.classList.add("displayNone");
+        }
+      } else if (!PositionAbsolute && DisplayFlex) {
+        event.target.classList.add("positionAbsolute");
+        console.log("PARA ADICIONAR POSITION " + !PositionAbsolute);
+        const childNode = event.target.childNodes[3];
+        if (childNode) {
+          childNode.classList.remove("displayNone");
+          childNode.classList.add("displayOn");
+        }
+      }
+      // console.log(event.target.childNodes[3].classList)
+    })
+
   })
-  
-})
 }
 
 // Buscar quadros do usuário logado
@@ -59,26 +76,35 @@ board.addEventListener("click", async () => {
     }
 
     await addBoards();
-    
+    lista.addLista();
+
 
   } catch (error) {
     console.error("Error:", error);
   }
 });
 
+
+// Adicionar quadros na lista e exibir
 async function addBoards() {
   boardsContent.innerHTML = "";
   let boards = await getBoards(localStorage.getItem("token"));
   let div_board = "";
   boards.forEach((element) => {
     div_board += `
-    <div id="${element.id}" class="boards-format" style="background-color: ${element.color};">
-        <p>${element.name}</p>
+    <div id="${element.id}" class="boards-format displayFlex" style="background-color: ${element.color};">
+    <div class="board-header displayFlex">    
+    <p class="board-name">${element.name}</p>
         <p class="starEmpty">✩</p>
         <p class="star displayNone">⭐</p>
+        </div>
+        <div class="displayNone">
+        <button class="adicionarLista"> ➕ Adicionar lista</button>
+        </div>
     </div>
 `;
     boardsContent.innerHTML = div_board;
+    lista.getLists(localStorage.getItem("token"), element.id)
 
   });
   let btnAddBoard = document.createElement("button");
@@ -89,7 +115,6 @@ async function addBoards() {
   await adicionarFavorito();
   await exibirBoard();
 
-  
 }
 
 async function postBoard(data, token) {
