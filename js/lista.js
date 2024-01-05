@@ -25,7 +25,10 @@ const lista = {
       });
   
       const result = await response.json();
-      console.log("Success:", result);
+      // console.log("Success: ", result);
+
+      console.log("Conteudo das listas: ", result);
+      return result;
     } catch (error) {
       console.error("Error:", error);
     }

@@ -5,14 +5,15 @@ import getToken from "./token.js";
 let boardsContent = document.getElementById("boards-content");
 let board = document.getElementById("boards");
 let boardsList = "";
+let listsContent = "";
 
 // Adiciona eventListener para exibir os quadros
 async function exibirBoard() {
   boardsList = Array.from(document.getElementsByClassName("boards-format"));
+  console.log(boardsList)
   boardsList.forEach(element => {
 
     element.addEventListener("click", async (event) => {
-      event.stopPropagation();
       if (event.target.classList.contains("positionAbsolute")) {
         event.target.childNodes[3].classList.remove("displayOn");
         event.target.childNodes[3].classList.add("displayNone");
@@ -23,6 +24,9 @@ async function exibirBoard() {
         event.target.classList.add("positionAbsolute");
       }
 
+      // console.log(event.target.childNodes[3]); // div com as listas salvo
+      addLists(event.target.id, event.target.childNodes[3])
+      
     })
   })
 }
@@ -88,24 +92,38 @@ export default async function addBoards() {
         <p class="starEmpty">✩</p>
         <p class="star displayNone">⭐</p>
         </div>
-        <div class="displayNone">
+        <div class="lists-content displayNone">
         <button class="adicionarLista"> ➕ Adicionar lista</button>
         </div>
     </div>
 `;
     boardsContent.innerHTML = div_board;
-    lista.getLists(getToken(), element.id)
-
   });
-  let btnAddBoard = document.createElement("button");
-  btnAddBoard.appendChild(document.createTextNode("Adicionar quadro"));
-  btnAddBoard.id = "btn-addBoard";
-  boardsContent.appendChild(btnAddBoard);
+  
   await addBoardButton();
   await adicionarFavorito();
   await exibirBoard();
 
 }
+
+
+async function addLists(id, element) {
+
+  let div_listas = "";
+  let listas = Array.from(await lista.getLists(getToken(), id));
+
+  listas.forEach((list) => {
+    div_listas += `
+    <div id="${list.id}" class="lists-format">
+      <p> ${list.name} </p>
+    </div>
+`;
+    console.log("BOARD DE ID: ", id)
+    element.innerHTML = div_listas
+    element.innerHTML += `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
+  })
+}
+
 
 async function postBoard(data, token) {
   try {
