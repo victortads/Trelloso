@@ -59,6 +59,10 @@ body {
   padding: 1rem;
 }
 
+#user img{
+  border-radius: 50%;
+}
+
 #user-show {
   padding: 1rem;
   background-color: #a4acb6;
@@ -108,7 +112,14 @@ body {
   top: -10%;
 }
 
-.form {
+fieldset {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  border: none;
+}
+
+.form{
   display: flex;
   flex-direction: column;
   row-gap: 1rem;

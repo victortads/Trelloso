@@ -1,3 +1,6 @@
-let token = localStorage.getItem("token")
+function getToken() {
+    if (localStorage.getItem("token"))
+        return localStorage.getItem("token");
+}
 
-export default token;
+export default getToken;

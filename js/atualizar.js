@@ -1,3 +1,5 @@
+import getToken from "./token.js";
+
 let user = document.getElementById("user-show");
 let divAtualizar = document.getElementById("atualizar-cadastro");
 let inputNomeAtualizar = document.getElementById("input-atualizar-nome");
@@ -8,7 +10,7 @@ let formAtualizar = document.getElementById("form-atualizar");
 
 user.addEventListener("click", () => {
   if (divAtualizar.classList.contains("displayNone")) {
-    getDataUser(localStorage.getItem("token"));
+    getDataUser(getToken());
     nav.classList.remove("displayOn");
     nav.classList.add("displayNone");
     content.classList.remove("displayOn");
@@ -34,8 +36,8 @@ formAtualizar.addEventListener("submit", async (event) => {
     avatar_url: inputURLAtualizar.value,
     password: inputSenhaAtualizar.value,
   };
-  let id = await getId(localStorage.getItem("token"));
-  atualizarUser(dadosMod, id, localStorage.getItem("token"));
+  let id = await getId(getToken());
+  atualizarUser(dadosMod, id, getToken());
 });
 
 async function getId(token) {

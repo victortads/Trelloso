@@ -1,15 +1,17 @@
 import cadastro from "./cadastro.js";
 import login from "./login.js";
 import user from "./atualizar.js";
+import getToken from "./token.js";
+import addBoards from "./quadros.js";
 
-let verify = localStorage.getItem("token");
+let verify = getToken();
 let nav = document.querySelector("#nav");
 let content = document.querySelector("#content");
 let views = Array.from(document.getElementsByClassName("view"));
 
 // Adiciona a função de remover o token do local storage para que o usuário seja deslogado
 document.querySelector("#btn-rmtoken").addEventListener("click", () => {
-  if (localStorage.getItem("token")) {
+  if (getToken()) {
     localStorage.removeItem("token");
     getToken();
     alert("Token apagado!");
@@ -19,6 +21,8 @@ document.querySelector("#btn-rmtoken").addEventListener("click", () => {
     document.getElementById("btn-rmtoken").classList.add("displayNone");
     document.getElementById("user-show").classList.remove("displayOn");
     document.getElementById("user-show").classList.add("displayNone");
+    document.getElementById("nav").classList.remove("displayOn");
+    document.getElementById("nav").classList.add("displayNone");
     document.getElementById("user-show").innerText = "";
     content.classList.remove("displayOn");
     content.classList.add("displayNone");
@@ -39,7 +43,7 @@ document.querySelector("#btn-rmtoken").addEventListener("click", () => {
 });
 
 // Irá buscar o token no local storage para verificar se o usuário está logado
-function getToken() {
+function verificarToken() {
   if (!verify) {
     alert("Usuário não logado");
     login.divLogin.classList.remove("displayNone");
@@ -51,7 +55,7 @@ function getToken() {
   }
 }
 
-getToken();
+verificarToken();
 
 // Faz requisição do usuário logado para recuperar seu nome e adicionar no header da página
 async function readUser(token) {
@@ -77,6 +81,14 @@ async function readUser(token) {
       document.getElementById("btn-rmtoken").classList.add("displayOn");
       document.getElementById("user-show").classList.remove("displayNone");
       document.getElementById("user-show").classList.add("displayOn");
+      document.getElementById("boards-content").classList.remove("displayNone");
+      document.getElementById("boards-content").classList.add("displayFlex");
+      document.getElementById("content").classList.remove("displayNone");
+      document.getElementById("content").classList.add("displayOn");
+      document.getElementById("nav").classList.remove("displayNone");
+      document.getElementById("nav").classList.add("displayOn");
+
+      addBoards();
 
       if (login.divLogin.classList.contains("displayOn")) {
         login.divLogin.classList.remove("displayOn");
@@ -97,7 +109,7 @@ async function readUser(token) {
   }
 }
 
-readUser(localStorage.getItem("token"));
+readUser(getToken());
 
 // Adiciona a função de visualizar senha
 views.forEach((view) => {

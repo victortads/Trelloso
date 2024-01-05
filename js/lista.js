@@ -8,6 +8,7 @@ const lista = {
     btn_lista = Array.from(document.getElementsByClassName("adicionarLista"));
     btn_lista.forEach(element => {
       element.addEventListener("click", (event) => {
+        event.stopPropagation();
        console.log("IMPLEMENTAR " + event.target);
       });
     });

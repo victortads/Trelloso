@@ -1,5 +1,6 @@
 import adicionarFavorito from "./quadroAtualizar.js";
 import lista from "./lista.js";
+import getToken from "./token.js";
 
 let boardsContent = document.getElementById("boards-content");
 let board = document.getElementById("boards");
@@ -11,29 +12,18 @@ async function exibirBoard() {
   boardsList.forEach(element => {
 
     element.addEventListener("click", async (event) => {
-
-      const PositionAbsolute = event.target.classList.contains("positionAbsolute");
-      const DisplayFlex = event.target.classList.contains("displayFlex");
-      if (PositionAbsolute && DisplayFlex) {
+      event.stopPropagation();
+      if (event.target.classList.contains("positionAbsolute")) {
+        event.target.childNodes[3].classList.remove("displayOn");
+        event.target.childNodes[3].classList.add("displayNone");
         event.target.classList.remove("positionAbsolute");
-        console.log("PARA REMOVER POSITION " + PositionAbsolute);
-        const childNode = event.target.childNodes[3];
-        if (childNode) {
-          childNode.classList.remove("displayOn");
-          childNode.classList.add("displayNone");
-        }
-      } else if (!PositionAbsolute && DisplayFlex) {
+      } else {
+        event.target.childNodes[3].classList.remove("displayNone");
+        event.target.childNodes[3].classList.add("displayOn");
         event.target.classList.add("positionAbsolute");
-        console.log("PARA ADICIONAR POSITION " + !PositionAbsolute);
-        const childNode = event.target.childNodes[3];
-        if (childNode) {
-          childNode.classList.remove("displayNone");
-          childNode.classList.add("displayOn");
-        }
       }
-      // console.log(event.target.childNodes[3].classList)
-    })
 
+    })
   })
 }
 
@@ -86,9 +76,9 @@ board.addEventListener("click", async () => {
 
 
 // Adicionar quadros na lista e exibir
-async function addBoards() {
+export default async function addBoards() {
   boardsContent.innerHTML = "";
-  let boards = await getBoards(localStorage.getItem("token"));
+  let boards = await getBoards(getToken());
   let div_board = "";
   boards.forEach((element) => {
     div_board += `
@@ -104,7 +94,7 @@ async function addBoards() {
     </div>
 `;
     boardsContent.innerHTML = div_board;
-    lista.getLists(localStorage.getItem("token"), element.id)
+    lista.getLists(getToken(), element.id)
 
   });
   let btnAddBoard = document.createElement("button");
@@ -166,7 +156,7 @@ formBoard.addEventListener("submit", async (event) => {
     };
     document.querySelector("#div-createCard").classList.remove("displayOn");
     document.querySelector("#div-createCard").classList.add("displayNone");
-    await postBoard(boardData, localStorage.getItem("token"));
+    await postBoard(boardData, getToken());
     await addBoards();
   } catch (error) {
     console.error("Error:", error);

@@ -10,10 +10,12 @@
   <script defer src="js/main.js" type="module"></script>
   <script defer src="js/quadros.js" type="module"></script>
   <script defer src="js/quadroAtualizar.js" type="module"></script>
+  <script defer src="js/token.js" type="module"></script>
 </head>
 
 <body>
   <div id="body">
+
     <div id="header" class="displayOn">
       <button id="home">
         <h1>Trelloso</h1>
@@ -31,6 +33,7 @@
       </div>
     </div>
 
+
     <div id="nav" class="displayOn">
       <ul>
         <li><button id="boards">Quadros</button></li>
@@ -38,9 +41,11 @@
       </ul>
     </div>
 
+
     <div id="content" class="displayOn">
       <div id="boards-content" class="displayNone"></div>
     </div>
+    
 
     <div id="div-createCard" class="displayNone">
       <form action="" id="form-addBoard">
@@ -51,31 +56,30 @@
     </div>
 
     <div id="div_cadastro" class="formatacaoForm displayNone">
-      <form action="" id="form-cadastro" class="form"> 
+      <form action="" id="form-cadastro" class="form">
         <h3>Cadastro</h3>
-        <div class="campos-form">
+
+        <fieldset>
           <label class="label-form">nome</label>
           <input type="text" id="input-nome" class="input-form" />
-        </div>
+        </fieldset>
 
-        <div class="campos-form">
+        <fieldset>
           <label class="label-form">username</label>
           <input type="text" id="input-username" class="input-form" />
-        </div>
+        </fieldset>
 
-        <div class="campos-form">
+        <fieldset>
           <label class="label-form">Avatar URL</label>
           <input type="text" id="input-avatarurl" class="input-form" />
-        </div>
+        </fieldset>
 
-        <div class="campos-form">
+        <fieldset>
           <label class="label-form">senha <span class="view">👀</span></label>
           <input type="password" id="input-senha" class="input-form" />
-        </div>
+        </fieldset>
 
-        <button type="submit" id="btn-create" class="submit-form">
-          Salvar
-        </button>
+        <button type="submit" id="btn-create" class="submit-form">Salvar</button>
       </form>
       <div>
         <button id="btn-withLogin" class="alternative">Possui login?</button>
@@ -85,44 +89,48 @@
     <div id="div_login" class="formatacaoForm displayNone">
       <form action="" id="form-login" class="form">
         <h3>Login</h3>
-        <div class="campos-form">
+
+        <fieldset>
           <label class="label-form">username</label>
           <input type="text" id="input-user_login" name="username" class="input-form" />
-        </div>
-        <div class="campos-form">
+        </fieldset>
+
+        <fieldset>
           <label class="label-form">senha <span class="view">👀</span></label>
           <input type="password" id="input-passsword_login" name="password" class="input-form" />
-        </div>
-        <button type="submit" id="btn-login" class="submit-form">
-          Login
-        </button>
+        </fieldset>
+
+        <button type="submit" id="btn-login" class="submit-form">login</button>
       </form>
       <div>
-        <button id="btn-noLogin" class="alternative">
-          Não possui login?
-        </button>
+        <button id="btn-noLogin" class="alternative">Não possui login?</button>
       </div>
     </div>
 
     <div id="atualizar-cadastro" class="formatacaoForm displayNone">
       <form id="form-atualizar" class="form">
         <h3>Atualizar Cadastro</h3>
-        <div class="campos-form">
+
+        <fieldset>
           <label class="label-form">Nome</label>
           <input id="input-atualizar-nome" type="text" class="input-form" />
-        </div>
-        <div class="campos-form">
+        </fieldset>
+
+        <fieldset>
           <label class="label-form">Username</label>
-          <input id="input-atualizar-username" type="text" class="input-form" readonly/>
-        </div>
-        <div class="campos-form">
+          <input id="input-atualizar-username" type="text" class="input-form" readonly />
+        </fieldset>
+
+        <fieldset>
           <label class="label-form">Avatar Url</label>
           <input id="input-atualizar-url" type="text" class="input-form" />
-        </div>
-        <div class="campos-form">
+        </fieldset>
+
+        <fieldset>
           <label class="label-form">senha</label>
-          <input id="input-atualizar-senha" type="text" class="input-form"  required/>
-        </div>
+          <input id="input-atualizar-senha" type="text" class="input-form" required />
+        </fieldset>
+
         <button id="btn-atualizar" type="submit" class="submit-form">Atualizar</button>
       </form>
     </div>
