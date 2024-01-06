@@ -1,20 +1,30 @@
 let btn_lista = "";
-
+let btnAddCard = '';
 
 const lista = {
 
   // Implementar para adicionar listas naquele board
-  addLista: function() {
+  addLista: function () {
     btn_lista = Array.from(document.getElementsByClassName("adicionarLista"));
     btn_lista.forEach(element => {
       element.addEventListener("click", (event) => {
-        event.stopPropagation();
-       console.log("IMPLEMENTAR " + event.target);
+        event.stopPropagation()
+        if (document.getElementById("div-adicionar-lista").classList.contains("displayNone")) {
+          document.getElementById("div-adicionar-lista").classList.remove("displayNone");
+          document.getElementById("div-adicionar-lista").classList.add("displayOn");
+        } else {
+          document.getElementById("div-adicionar-lista").classList.remove("displayOn");
+          document.getElementById("div-adicionar-lista").classList.add("displayNone");
+        }
+
+        document.getElementById("input-lista-id").value = event.target.parentNode.parentNode.id;
+
+        console.log(event.target.parentNode.parentNode.id)
       });
     });
   },
-// Busca as listas para aquele board
-  getLists: async function(token, board_id) {
+  // Busca as listas para aquele board
+  getLists: async function (token, board_id) {
     try {
       const response = await fetch(`http://localhost:8087/api/v1/boards/${board_id}/lists`, {
         method: "GET",
@@ -23,7 +33,7 @@ const lista = {
           Authorization: "Bearer" + ` ${token}`,
         },
       });
-  
+
       const result = await response.json();
       // console.log("Success: ", result);
 
@@ -33,8 +43,8 @@ const lista = {
       console.error("Error:", error);
     }
   },
-// Cria listas
-  postList: async function(data, token) {
+  // Cria listas
+  postList: async function (data, token) {
     try {
       const response = await fetch("http://localhost:8087/api/v1/lists/", {
         method: "POST",
@@ -57,8 +67,8 @@ export default lista;
 
 
 
-  
 
 
 
-  
+
+

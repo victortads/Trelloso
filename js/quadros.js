@@ -1,32 +1,38 @@
 import adicionarFavorito from "./quadroAtualizar.js";
 import lista from "./lista.js";
 import getToken from "./token.js";
+import cards from "./cards.js";
 
 let boardsContent = document.getElementById("boards-content");
 let board = document.getElementById("boards");
 let boardsList = "";
 let listsContent = "";
 
+
 // Adiciona eventListener para exibir os quadros
 async function exibirBoard() {
   boardsList = Array.from(document.getElementsByClassName("boards-format"));
-  console.log(boardsList)
+
   boardsList.forEach(element => {
 
     element.addEventListener("click", async (event) => {
       if (event.target.classList.contains("positionAbsolute")) {
-        event.target.childNodes[3].classList.remove("displayOn");
+        event.target.childNodes[3].classList.remove("displayFlex");
         event.target.childNodes[3].classList.add("displayNone");
         event.target.classList.remove("positionAbsolute");
+        if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
+          document.getElementById("div-adicionar-lista").classList.remove("displayOn");
+          document.getElementById("div-adicionar-lista").classList.add("displayNone");
+        }
       } else {
         event.target.childNodes[3].classList.remove("displayNone");
-        event.target.childNodes[3].classList.add("displayOn");
+        event.target.childNodes[3].classList.add("displayFlex");
         event.target.classList.add("positionAbsolute");
       }
 
-      // console.log(event.target.childNodes[3]); // div com as listas salvo
+      // console.log(event.target.classList); // div com as listas salvo
       addLists(event.target.id, event.target.childNodes[3])
-      
+
     })
   })
 }
@@ -70,7 +76,6 @@ board.addEventListener("click", async () => {
     }
 
     await addBoards();
-    lista.addLista();
 
 
   } catch (error) {
@@ -99,7 +104,7 @@ export default async function addBoards() {
 `;
     boardsContent.innerHTML = div_board;
   });
-  
+
   await addBoardButton();
   await adicionarFavorito();
   await exibirBoard();
@@ -112,18 +117,25 @@ async function addLists(id, element) {
   let div_listas = "";
   let listas = Array.from(await lista.getLists(getToken(), id));
 
+  let IDs = [];
   listas.forEach((list) => {
     div_listas += `
-    <div id="${list.id}" class="lists-format">
-      <p> ${list.name} </p>
+    <div list_id="${list.id}" class="lists-format">
+       <h3>${list.name}</h3> 
     </div>
 `;
+    IDs.push(list.id);
     console.log("BOARD DE ID: ", id)
-    element.innerHTML = div_listas
     element.innerHTML += `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
   })
+  element.innerHTML = div_listas
+  
+  for (let i = 0; i < IDs.length; i++) {
+    await cards.addCards(IDs[i]);
 }
 
+  lista.addLista();
+}
 
 async function postBoard(data, token) {
   try {
