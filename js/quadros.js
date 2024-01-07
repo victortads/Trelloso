@@ -2,20 +2,23 @@ import adicionarFavorito from "./quadroAtualizar.js";
 import lista from "./lista.js";
 import getToken from "./token.js";
 import cards from "./cards.js";
+import propagation from "./stop_propagation.js";
 
 let boardsContent = document.getElementById("boards-content");
 let board = document.getElementById("boards");
 let boardsList = "";
-let listsContent = "";
 
 
 // Adiciona eventListener para exibir os quadros
 async function exibirBoard() {
   boardsList = Array.from(document.getElementsByClassName("boards-format"));
 
+  // Trata para que os elementos board se sobreponham sobre os outros
+  // E expande para visualizar
   boardsList.forEach(element => {
 
     element.addEventListener("click", async (event) => {
+
       if (event.target.classList.contains("positionAbsolute")) {
         event.target.childNodes[3].classList.remove("displayFlex");
         event.target.childNodes[3].classList.add("displayNone");
@@ -30,7 +33,7 @@ async function exibirBoard() {
         event.target.classList.add("positionAbsolute");
       }
 
-      // console.log(event.target.classList); // div com as listas salvo
+      // console.log("Disparou o elemento: ", event.target); // div com as listas salvo
       addLists(event.target.id, event.target.childNodes[3])
 
     })
@@ -52,7 +55,6 @@ async function getBoards(token) {
     );
 
     const result = await response.json();
-    console.log("Success:", result);
     return result;
   } catch (error) {
     console.error("Error:", error);
@@ -108,15 +110,18 @@ export default async function addBoards() {
   await addBoardButton();
   await adicionarFavorito();
   await exibirBoard();
+  propagation.stopPropagation('.board-name');
+  propagation.stopPropagation('.lists-content')
 
 }
 
-
+// Adiciona listas relacionadas ao board
 async function addLists(id, element) {
 
   let div_listas = "";
   let listas = Array.from(await lista.getLists(getToken(), id));
 
+  // Array para salvar os ids de cada lista e depois usar para buscar os cards
   let IDs = [];
   listas.forEach((list) => {
     div_listas += `
@@ -129,17 +134,19 @@ async function addLists(id, element) {
     element.innerHTML += `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
   })
   element.innerHTML = div_listas
-  
+
+  // Adiciona para cada lista os cards relacionados
   for (let i = 0; i < IDs.length; i++) {
     await cards.addCards(IDs[i]);
-}
+  }
 
+  propagation.stopPropagation('.lists-format');
   lista.addLista();
 }
 
 async function postBoard(data, token) {
   try {
-    const response = await fetch("http://localhost:8087/api/v1/boards/", {
+    await fetch("http://localhost:8087/api/v1/boards/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,13 +154,12 @@ async function postBoard(data, token) {
       },
       body: JSON.stringify(data),
     });
-    const result = await response.json();
-    console.log("Success:", result);
   } catch (error) {
     console.error("Error:", error);
   }
 }
 
+// Adiciona o form para envio dos dados de novo card
 async function addBoardButton() {
   try {
     let btnAddBoard = document.querySelector("#btn-addBoard");
@@ -175,7 +181,7 @@ async function addBoardButton() {
 }
 
 let formBoard = document.getElementById("form-addBoard");
-
+// Formatação para criação de boards (Salva favorito: false como padrão)
 formBoard.addEventListener("submit", async (event) => {
   event.preventDefault();
   try {

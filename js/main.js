@@ -15,6 +15,7 @@ document.querySelector("#btn-rmtoken").addEventListener("click", () => {
     localStorage.removeItem("token");
     getToken();
     alert("Token apagado!");
+    // Fechamento de elementos ao deslogar
     document.getElementById("image-user").classList.remove("displayOn");
     document.getElementById("image-user").classList.add("displayNone");
     document.getElementById("btn-rmtoken").classList.remove("displayOn");
@@ -26,12 +27,14 @@ document.querySelector("#btn-rmtoken").addEventListener("click", () => {
     document.getElementById("user-show").innerText = "";
     content.classList.remove("displayOn");
     content.classList.add("displayNone");
+    // Reset dos campos de login
     login.inputSenha.value = '';
     login.inputName.value = '';
     login.divLogin.classList.remove("displayNone");
     login.divLogin.classList.add("displayOn");
     content.classList.remove("displayOn");
     content.classList.add("displayNone");
+    // Reset dos boards
     document.getElementById("boards-content").innerHTML = "";
 
 

@@ -1,8 +1,6 @@
 let btn_lista = "";
-let btnAddCard = '';
 
 const lista = {
-
   // Implementar para adicionar listas naquele board
   addLista: function () {
     btn_lista = Array.from(document.getElementsByClassName("adicionarLista"));
@@ -33,11 +31,7 @@ const lista = {
           Authorization: "Bearer" + ` ${token}`,
         },
       });
-
       const result = await response.json();
-      // console.log("Success: ", result);
-
-      console.log("Conteudo das listas: ", result);
       return result;
     } catch (error) {
       console.error("Error:", error);
@@ -46,7 +40,7 @@ const lista = {
   // Cria listas
   postList: async function (data, token) {
     try {
-      const response = await fetch("http://localhost:8087/api/v1/lists/", {
+      await fetch("http://localhost:8087/api/v1/lists/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,8 +48,6 @@ const lista = {
         },
         body: JSON.stringify(data),
       });
-      const result = await response.json();
-      console.log("Success:", result);
     } catch (error) {
       console.error("Error:", error);
     }

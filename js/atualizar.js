@@ -27,6 +27,7 @@ user.addEventListener("click", () => {
   }
 });
 
+// form de atualizar os dados
 formAtualizar.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -40,6 +41,7 @@ formAtualizar.addEventListener("submit", async (event) => {
   atualizarUser(dadosMod, id, getToken());
 });
 
+// Pega id do usuário
 async function getId(token) {
   try {
     const response = await fetch("http://localhost:8087/api/v1/users/me", {
@@ -49,9 +51,7 @@ async function getId(token) {
         Authorization: "Bearer" + ` ${token}`,
       },
     });
-
     const result = await response.json();
-    console.log("Success:", result.id);
     return result.id;
   } catch (error) {
     console.error("Error:", error);
@@ -67,9 +67,7 @@ async function getDataUser(token) {
         Authorization: "Bearer" + ` ${token}`,
       },
     });
-
     const result = await response.json();
-    console.log("Success:", result);
     inputNomeAtualizar.value = result.name;
     inputUsernameAtualizar.value = result.username;
     inputURLAtualizar.value = result.avatar_url;
@@ -81,9 +79,7 @@ async function getDataUser(token) {
 
 async function atualizarUser(data, userid, token) {
   try {
-    console.log(`http://localhost:8087/api/v1/users/${userid}`);
-    const response = await fetch(
-      `http://localhost:8087/api/v1/users/${userid}`,
+    await fetch(`http://localhost:8087/api/v1/users/${userid}`,
       {
         method: "PATCH",
         headers: {
@@ -94,8 +90,6 @@ async function atualizarUser(data, userid, token) {
       }
     );
 
-    const result = await response.json();
-    console.log("Success:", result);
   } catch (error) {
     console.error("Error:", error);
   }
