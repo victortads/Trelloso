@@ -152,7 +152,8 @@
 
 
     <div id="div-adicionar-lista" class="formatacaoForm displayNone">
-      <form class="form">
+      <form class="form" id="form-lista">
+        <h3>Lista</h3>
         <fieldset>
           <label class="label-form">Board ID</label>
           <input id="input-lista-id" type="text" class="input-form" required readonly/>
@@ -161,11 +162,30 @@
           <label class="label-form">Nome da lista</label>
           <input id="input-lista-nome" type="text" class="input-form" required />
         </fieldset>
-        <fieldset>
+        <!-- <fieldset>
           <label class="label-form">Position</label>
           <input id="input-lista-position" type="text" class="input-form" required />
+        </fieldset> -->
+        <button id="submit-list" class="submit-form">Adicionar lista</button>
+      </form>
+    </div>
+
+    <div id="div-adicionar-card" class="formatacaoForm displayNone">
+      <form class="form" id="form-card">
+        <h3>Card</h3>
+        <fieldset>
+          <label class="label-form">List ID</label>
+          <input id="input-card-id" type="text" class="input-form" required readonly/>
         </fieldset>
-        <button class="submit-form">Adicionar lista</button>
+        <fieldset>
+          <label class="label-form">Nome do card</label>
+          <input id="input-card-nome" type="text" class="input-form" required />
+        </fieldset>
+        <!-- <fieldset>
+          <label class="label-form">Position</label>
+          <input id="input-lista-position" type="text" class="input-form" required />
+        </fieldset> -->
+        <button id="submit-card" class="submit-form" type="submit">Adicionar lista</button>
       </form>
     </div>
 

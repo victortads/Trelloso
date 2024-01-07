@@ -6,7 +6,7 @@ const coments = {
         // console.log(cards);
         let commentContent = "<ul>";
         comments.forEach((comment => {
-            commentContent += `<li comment_id="${comment.id}" class="comment-format">${comment.comment}</li>`;
+            commentContent += `<li draggable="true" comment_id="${comment.id}" class="comment-format">${comment.comment}</li>`;
 
         }));
 
@@ -38,6 +38,9 @@ const coments = {
         } catch (error) {
             console.error("Error:", error);
         }
+    },
+    postComment: async function(){
+        
     }
 }
 

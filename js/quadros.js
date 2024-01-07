@@ -10,7 +10,7 @@ let boardsList = "";
 
 
 // Adiciona eventListener para exibir os quadros
-async function exibirBoard() {
+export async function exibirBoard() {
   boardsList = Array.from(document.getElementsByClassName("boards-format"));
 
   // Trata para que os elementos board se sobreponham sobre os outros
@@ -18,6 +18,8 @@ async function exibirBoard() {
   boardsList.forEach(element => {
 
     element.addEventListener("click", async (event) => {
+
+      // if(document.getElementById("div-adicionar-lista").classList.contains("displayOn"))
 
       if (event.target.classList.contains("positionAbsolute")) {
         event.target.childNodes[3].classList.remove("displayFlex");
@@ -33,7 +35,7 @@ async function exibirBoard() {
         event.target.classList.add("positionAbsolute");
       }
 
-      // console.log("Disparou o elemento: ", event.target); // div com as listas salvo
+      // console.log("Disparou o elemento: ", event.target.childNodes[3]); // div com as listas salvo
       addLists(event.target.id, event.target.childNodes[3])
 
     })
@@ -105,6 +107,7 @@ export default async function addBoards() {
     </div>
 `;
     boardsContent.innerHTML = div_board;
+    
   });
 
   await addBoardButton();
@@ -112,12 +115,12 @@ export default async function addBoards() {
   await exibirBoard();
   propagation.stopPropagation('.board-name');
   propagation.stopPropagation('.lists-content')
+  propagation.stopPropagation('.board-header');
 
 }
 
 // Adiciona listas relacionadas ao board
-async function addLists(id, element) {
-
+export async function addLists(id, element) {
   let div_listas = "";
   let listas = Array.from(await lista.getLists(getToken(), id));
 
@@ -125,23 +128,23 @@ async function addLists(id, element) {
   let IDs = [];
   listas.forEach((list) => {
     div_listas += `
-    <div list_id="${list.id}" class="lists-format">
+    <div draggable="true" list_id="${list.id}" class="lists-format">
        <h3>${list.name}</h3> 
     </div>
 `;
     IDs.push(list.id);
-    console.log("BOARD DE ID: ", id)
+    element.innerHTML = div_listas
     element.innerHTML += `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
   })
-  element.innerHTML = div_listas
 
   // Adiciona para cada lista os cards relacionados
-  for (let i = 0; i < IDs.length; i++) {
-    await cards.addCards(IDs[i]);
+  for (let i of IDs) {
+    await cards.addCards(i);
   }
 
   propagation.stopPropagation('.lists-format');
   lista.addLista();
+  
 }
 
 async function postBoard(data, token) {
@@ -162,6 +165,7 @@ async function postBoard(data, token) {
 // Adiciona o form para envio dos dados de novo card
 async function addBoardButton() {
   try {
+    boardsContent.innerHTML += `<button id="btn-addBoard"> Adicionar quadro </button>`;
     let btnAddBoard = document.querySelector("#btn-addBoard");
 
     if (btnAddBoard) {
