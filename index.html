@@ -61,8 +61,17 @@
 
     <div id="div-createCard" class="displayNone">
       <form action="" id="form-addBoard">
-        <input type="text" id="board-name" placeholder="Nome do quadro" />
-        <input type="text" id="board-color" placeholder="Cor do quadro" />
+        <input type="text" id="board-name" placeholder="Nome do quadro" required/>
+        <fieldset>
+          <label for="color">Escolha a cor</label>
+          <input id="board-color" list="presets" type="color" name="color">
+          <datalist id="presets">
+            <option value="#454B4D">Grey</option>
+            <option value="#258D4D">White</option>
+            <option value="#6699cc">Blue</option>
+            <option value="#ae4d7b">Pink</option>
+          </datalist>
+        </fieldset>
         <input type="submit" value="Adicionar">
       </form>
     </div>
@@ -74,22 +83,22 @@
 
         <fieldset>
           <label class="label-form">nome</label>
-          <input type="text" id="input-nome" class="input-form" />
+          <input type="text" id="input-nome" class="input-form" required/>
         </fieldset>
 
         <fieldset>
           <label class="label-form">username</label>
-          <input type="text" id="input-username" class="input-form" />
+          <input type="text" id="input-username" class="input-form" required/>
         </fieldset>
 
         <fieldset>
           <label class="label-form">Avatar URL</label>
-          <input type="text" id="input-avatarurl" class="input-form" />
+          <input type="text" id="input-avatarurl" class="input-form" required/>
         </fieldset>
 
         <fieldset>
           <label class="label-form">senha <span class="view">👀</span></label>
-          <input type="password" id="input-senha" class="input-form" />
+          <input type="password" id="input-senha" class="input-form" required/>
         </fieldset>
 
         <button type="submit" id="btn-create" class="submit-form">Salvar</button>
@@ -106,12 +115,12 @@
 
         <fieldset>
           <label class="label-form">username</label>
-          <input type="text" id="input-user_login" name="username" class="input-form" />
+          <input type="text" id="input-user_login" name="username" class="input-form" required/>
         </fieldset>
 
         <fieldset>
           <label class="label-form">senha <span class="view">👀</span></label>
-          <input type="password" id="input-passsword_login" name="password" class="input-form" />
+          <input type="password" id="input-passsword_login" name="password" class="input-form" required/>
         </fieldset>
 
         <button type="submit" id="btn-login" class="submit-form">login</button>
@@ -128,7 +137,7 @@
 
         <fieldset>
           <label class="label-form">Nome</label>
-          <input id="input-atualizar-nome" type="text" class="input-form" />
+          <input id="input-atualizar-nome" type="text" class="input-form" required/>
         </fieldset>
 
         <fieldset>
@@ -138,7 +147,7 @@
 
         <fieldset>
           <label class="label-form">Avatar Url</label>
-          <input id="input-atualizar-url" type="text" class="input-form" />
+          <input id="input-atualizar-url" type="text" class="input-form" required/>
         </fieldset>
 
         <fieldset>
@@ -156,7 +165,7 @@
         <h3>Lista</h3>
         <fieldset>
           <label class="label-form">Board ID</label>
-          <input id="input-lista-id" type="text" class="input-form" required readonly/>
+          <input id="input-lista-id" type="text" class="input-form" required readonly />
         </fieldset>
         <fieldset>
           <label class="label-form">Nome da lista</label>
@@ -175,17 +184,29 @@
         <h3>Card</h3>
         <fieldset>
           <label class="label-form">List ID</label>
-          <input id="input-card-id" type="text" class="input-form" required readonly/>
+          <input id="input-card-id" type="text" class="input-form" required readonly />
         </fieldset>
         <fieldset>
           <label class="label-form">Nome do card</label>
           <input id="input-card-nome" type="text" class="input-form" required />
         </fieldset>
-        <!-- <fieldset>
-          <label class="label-form">Position</label>
-          <input id="input-lista-position" type="text" class="input-form" required />
-        </fieldset> -->
-        <button id="submit-card" class="submit-form" type="submit">Adicionar lista</button>
+        <button id="submit-card" class="submit-form" type="submit">Adicionar card</button>
+      </form>
+    </div>
+
+    
+    <div id="div-adicionar-comentario" class="formatacaoForm displayNone">
+      <form class="form" id="form-comentario">
+        <h3>Comentário</h3>
+        <fieldset>
+          <label class="label-form">Card ID</label>
+          <input id="input-comentario-id" type="text" class="input-form" readonly />
+        </fieldset>
+        <fieldset>
+          <label class="label-form">Nome do comentario</label>
+          <input id="input-comentario-nome" type="text" class="input-form" required />
+        </fieldset>
+        <button id="submit-comentario" class="submit-form" type="submit">Adicionar comentario</button>
       </form>
     </div>
 

@@ -42,6 +42,15 @@ document.querySelector("#btn-rmtoken").addEventListener("click", () => {
       document.getElementById("atualizar-cadastro").classList.remove("displayOn");
       document.getElementById("atualizar-cadastro").classList.add("displayNone");
     }
+    if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
+      document.getElementById("div-adicionar-lista").classList.remove("displayOn");
+      document.getElementById("div-adicionar-lista").classList.add("displayNone");
+    }
+
+    if (document.getElementById("div-adicionar-card").classList.contains("displayOn")) {
+      document.querySelector("#div-adicionar-card").classList.remove("displayOn");
+      document.querySelector("#div-adicionar-card").classList.add("displayNone");
+    }
   }
 });
 

@@ -29,14 +29,25 @@ export async function exibirBoard() {
           document.getElementById("div-adicionar-lista").classList.remove("displayOn");
           document.getElementById("div-adicionar-lista").classList.add("displayNone");
         }
+
+        if (document.getElementById("div-adicionar-card").classList.contains("displayOn")) {
+          document.querySelector("#div-adicionar-card").classList.remove("displayOn");
+          document.querySelector("#div-adicionar-card").classList.add("displayNone");
+        }
+
+        if (document.getElementById("div-adicionar-comentario").classList.contains("displayOn")) {
+          document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
+          document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
+        }
+
       } else {
         event.target.childNodes[3].classList.remove("displayNone");
         event.target.childNodes[3].classList.add("displayFlex");
         event.target.classList.add("positionAbsolute");
+        addLists(event.target.id, event.target.childNodes[3])
       }
 
       // console.log("Disparou o elemento: ", event.target.childNodes[3]); // div com as listas salvo
-      addLists(event.target.id, event.target.childNodes[3])
 
     })
   })
@@ -107,7 +118,7 @@ export default async function addBoards() {
     </div>
 `;
     boardsContent.innerHTML = div_board;
-    
+
   });
 
   await addBoardButton();
@@ -125,26 +136,27 @@ export async function addLists(id, element) {
   let listas = Array.from(await lista.getLists(getToken(), id));
 
   // Array para salvar os ids de cada lista e depois usar para buscar os cards
-  let IDs = [];
-  listas.forEach((list) => {
+  // let IDs = [];
+  listas.forEach(async (list) => {
     div_listas += `
     <div draggable="true" list_id="${list.id}" class="lists-format">
        <h3>${list.name}</h3> 
     </div>
 `;
-    IDs.push(list.id);
+    // IDs.push(list.id);
     element.innerHTML = div_listas
     element.innerHTML += `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
+    await cards.addCards(list.id);
   })
 
   // Adiciona para cada lista os cards relacionados
-  for (let i of IDs) {
-    await cards.addCards(i);
-  }
+  // for (let i of IDs) {
+  // }
+
 
   propagation.stopPropagation('.lists-format');
   lista.addLista();
-  
+
 }
 
 async function postBoard(data, token) {

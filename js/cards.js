@@ -2,6 +2,7 @@ import getToken from "./token.js";
 import coments from "./comentários.js";
 import { addLists, exibirBoard } from "./quadros.js";
 import lista from "./lista.js";
+import tags from "./tags.js";
 
 let boardId = "";
 
@@ -11,7 +12,7 @@ const cards = {
     },
     addCards: async function (list_id) {
 
-        let cards = await this.getCards(getToken(), list_id);
+        let cards = Array.from(await this.getCards(getToken(), list_id));
         // console.log(cards);
         let cardsContent = "<ul>";
         let IDs = [];
@@ -32,6 +33,16 @@ const cards = {
         btnaddCard.forEach((element) => {
             element.addEventListener("click", (event) => {
                 event.stopImmediatePropagation()
+                if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
+                    document.getElementById("div-adicionar-lista").classList.remove("displayOn");
+                    document.getElementById("div-adicionar-lista").classList.add("displayNone");
+                }
+
+                if (document.getElementById("div-adicionar-comentario").classList.contains("displayOn")) {
+                    document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
+                    document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
+                }
+
                 const parentListElement = event.target.closest(".lists-format");
                 const listId = parentListElement.getAttribute("list_id");
                 boardId = parentListElement.parentNode.parentNode.id;
@@ -49,9 +60,11 @@ const cards = {
         })
 
 
-        for (let i = 0; i < IDs.length; i++) {
-            await coments.addComments(IDs[i]);
+        for (let i of IDs) {
+            await coments.addComments(i);
+            // await tags.addTags(i);
         }
+
         return cardsContent;
 
     },
@@ -87,6 +100,23 @@ const cards = {
         } catch (error) {
             console.error("Error:", error);
         }
+    },
+    readCard: async function (token, card_id) {
+        try {
+            const response = await fetch(`http://localhost:8087/api/v1/cards/${card_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer" + ` ${token}`,
+                },
+            });
+
+            const result = await response.json();
+            // console.log("Success: ", result);
+            return result;
+        } catch (error) {
+            console.error("Error:", error);
+        }
     }
 }
 
@@ -101,8 +131,8 @@ document.getElementById("form-card").addEventListener("submit", async (event) =>
         position: 0
     }
     await cards.postCard(data, getToken());
-    // document.querySelector("#div-adicionar-card").classList.remove("displayOn");
-    // document.querySelector("#div-adicionar-card").classList.add("displayNone");
+    document.querySelector("#div-adicionar-card").classList.remove("displayOn");
+    document.querySelector("#div-adicionar-card").classList.add("displayNone");
     console.log("funcionando id: ", data.list_id)
     // console.log("O list é de ID: ", data.list_id)
     // console.log("TENTANDO BUSCAR O BOARD: ", document.getElementById(boardId).childNodes[3])

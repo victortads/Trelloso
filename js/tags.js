@@ -1,9 +1,25 @@
 import getToken from "./token.js";
 
-const coments = {
+const tags = {
     addTags: async function (card_id) {
-        
+        // let tags = await this.getTags(getToken(), card_id);
+        // console.log(tags)
+        // console.log(cards);
+        // let tagsContent = "<ul>";
+        // tags.forEach((tag => {
+        //     commentContent += `<li draggable="true" tag_id="${comment.id}" class="comment-format">${comment.comment}</li>`;
+        // }));
 
+        // commentContent += "</ul>";
+
+
+
+        // const cardsFormatElement = document.querySelector(`[card_id="${card_id}"]`);
+
+        // if (cardsFormatElement && cardsFormatElement.classList.contains("cards-format")) {
+        //     cardsFormatElement.innerHTML += commentContent;
+        // }
+        // return commentContent;
     },
     getTags: async function (token, card_id) {
         try {
@@ -24,4 +40,4 @@ const coments = {
     }
 }
 
-export default coments;
+export default tags;

@@ -13,6 +13,17 @@ const lista = {
       element.addEventListener("click", (event) => {
         event.stopPropagation()
         event.stopImmediatePropagation()
+
+        if (document.getElementById("div-adicionar-card").classList.contains("displayOn")) {
+          document.querySelector("#div-adicionar-card").classList.remove("displayOn");
+          document.querySelector("#div-adicionar-card").classList.add("displayNone");
+        }
+
+        if (document.getElementById("div-adicionar-comentario").classList.contains("displayOn")) {
+          document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
+          document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
+        }
+
         if (document.getElementById("div-adicionar-lista").classList.contains("displayNone")) {
           document.getElementById("div-adicionar-lista").classList.remove("displayNone");
           document.getElementById("div-adicionar-lista").classList.add("displayOn");
