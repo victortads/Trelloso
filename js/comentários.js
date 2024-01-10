@@ -1,11 +1,14 @@
 import cards from "./cards.js";
+import propagation from "./stop_propagation.js";
 import getToken from "./token.js";
 
 const coments = {
     addComments: async function (card_id) {
         let comments = await this.getComments(getToken(), card_id);
         // console.log(cards);
-        let commentContent = "<ul>";
+
+        
+        let commentContent = `<ul class="displayOn" id="ul-comentarios">`;
         comments.forEach((comment => {
             commentContent += `<li draggable="true" comment_id="${comment.id}" class="comment-format">${comment.comment}</li>`;
         }));
@@ -18,9 +21,10 @@ const coments = {
 
         if (cardsFormatElement && cardsFormatElement.classList.contains("cards-format")) {
             // cardsFormatElement.innerHTML = ``;
-            cardsFormatElement.innerHTML = `<h3>${id.name}</h3>`;
+            cardsFormatElement.innerHTML = `<h3 class="card-name">${id.name}</h3>`;
             cardsFormatElement.innerHTML += commentContent;
         }
+        propagation.stopPropagation(".card-name");
 
         const btnaddComment = Array.from(document.getElementsByClassName("adicionarComentario"));
         btnaddComment.forEach((element) => {
@@ -83,6 +87,21 @@ const coments = {
             console.log("Comentário enviado (RESULT): ", await result)
         } catch (error) {
             console.error("Error:", error);
+        }
+    },
+    deleteComment: async function (token, comment_id) {
+        try {
+            const response = await fetch(`http://localhost:8087/api/v1/card_comments/${comment_id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + `${token}`,
+                },
+            });
+
+            console.log(response)
+        } catch (error) {
+            console.error("Erro:", error);
         }
     }
 }

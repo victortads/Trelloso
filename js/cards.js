@@ -1,8 +1,8 @@
 import getToken from "./token.js";
 import coments from "./comentários.js";
-import { addLists, exibirBoard } from "./quadros.js";
 import lista from "./lista.js";
 import tags from "./tags.js";
+import propagation from "./stop_propagation.js";
 
 let boardId = "";
 
@@ -26,9 +26,11 @@ const cards = {
 
         let id = await lista.getList(getToken(), list_id);
         if (listsFormatElement) {
-            listsFormatElement.innerHTML = `<h3>${id.name}</h3>`;
+            listsFormatElement.innerHTML = `<div class="div-list"><h3 class="card-name">${id.name}</h3> <p class="removerLista"> 🗑️ </p></div>`;
             listsFormatElement.innerHTML += cardsContent;
         }
+        await lista.deleteListButton()
+
         const btnaddCard = Array.from(document.getElementsByClassName("adicionarCards"));
         btnaddCard.forEach((element) => {
             element.addEventListener("click", (event) => {
@@ -59,11 +61,54 @@ const cards = {
             })
         })
 
+        let cardsFunction = Array.from(document.getElementsByClassName("cards-format"));
+        cardsFunction.forEach((card)=>{
+            card.addEventListener("click", async (event) =>{
+                event.stopPropagation();
+                event.stopImmediatePropagation();
 
-        for (let i of IDs) {
-            await coments.addComments(i);
-            // await tags.addTags(i);
-        }
+                
+                // console.log(event.target.classList);
+                // console.log(event.target.childNodes);
+                
+                if (event.target.classList.contains("positionAbsoluteCard")) {
+                    let cardName = event.target.childNodes[0].textContent;
+                    console.log(cardName)
+                    event.target.childNodes[1].classList.remove("displayOn");
+                    event.target.childNodes[1].classList.add("displayNone");
+
+                    event.target.innerHTML = `${cardName}`;
+
+                    event.target.classList.remove("positionAbsoluteCard");
+                    if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
+                      document.getElementById("div-adicionar-lista").classList.remove("displayOn");
+                      document.getElementById("div-adicionar-lista").classList.add("displayNone");
+                    }
+            
+                    if (document.getElementById("div-adicionar-card").classList.contains("displayOn")) {
+                      document.querySelector("#div-adicionar-card").classList.remove("displayOn");
+                      document.querySelector("#div-adicionar-card").classList.add("displayNone");
+                    }
+            
+                    if (document.getElementById("div-adicionar-comentario").classList.contains("displayOn")) {
+                      document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
+                      document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
+                    }
+            
+                  } else {
+                    // event.target.childNodes[1].classList.remove("displayNone");
+                    // event.target.childNodes[1].classList.add("displayFlex");
+                    event.target.classList.add("positionAbsoluteCard");
+                    await coments.addComments(event.target.getAttribute("card_id"));
+                    // console.log(event.target.childNodes[3])
+                  }
+            })
+        })
+
+        // for (let i of IDs) {
+        //     await coments.addComments(i);
+        //     // await tags.addTags(i);
+        // }
 
         return cardsContent;
 
@@ -117,6 +162,21 @@ const cards = {
         } catch (error) {
             console.error("Error:", error);
         }
+    },
+    deleteCard: async function (token, card_id) {
+        try {
+            const response = await fetch(`http://localhost:8087/api/v1/cards/${card_id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + `${token}`,
+                },
+            });
+
+            console.log(response)
+        } catch (error) {
+            console.error("Erro:", error);
+        }
     }
 }
 
@@ -133,9 +193,8 @@ document.getElementById("form-card").addEventListener("submit", async (event) =>
     await cards.postCard(data, getToken());
     document.querySelector("#div-adicionar-card").classList.remove("displayOn");
     document.querySelector("#div-adicionar-card").classList.add("displayNone");
-    console.log("funcionando id: ", data.list_id)
-    // console.log("O list é de ID: ", data.list_id)
-    // console.log("TENTANDO BUSCAR O BOARD: ", document.getElementById(boardId).childNodes[3])
+    document.getElementById("input-card-nome").value = "";
+    document.getElementById("input-card-id").value = "";
     await cards.addCards(data.list_id);
 })
 

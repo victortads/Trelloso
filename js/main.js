@@ -81,7 +81,6 @@ async function readUser(token) {
     });
 
     const result = await response.json();
-    console.log("Success:", result.avatar_url);
     if (result.name) {
       let textEl = document.createTextNode(result.name);
       document.getElementById("user-show").appendChild(textEl);

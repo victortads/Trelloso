@@ -44,7 +44,8 @@ export async function exibirBoard() {
         event.target.childNodes[3].classList.remove("displayNone");
         event.target.childNodes[3].classList.add("displayFlex");
         event.target.classList.add("positionAbsolute");
-        addLists(event.target.id, event.target.childNodes[3])
+        // console.log(event.target.childNodes[3])
+        await addLists(event.target.id, event.target.childNodes[3]);
       }
 
       // console.log("Disparou o elemento: ", event.target.childNodes[3]); // div com as listas salvo
@@ -105,12 +106,24 @@ export default async function addBoards() {
   let boards = await getBoards(getToken());
   let div_board = "";
   boards.forEach((element) => {
+
+    let star;
+    let starEmpty;
+    if (element.favorito) {
+      star = "displayOn";
+      starEmpty = "displayNone"
+    } else {
+      star = "displayNone";
+      starEmpty = "displayOn"
+    }
     div_board += `
     <div id="${element.id}" class="boards-format displayFlex" style="background-color: ${element.color};">
     <div class="board-header displayFlex">    
     <p class="board-name">${element.name}</p>
-        <p class="starEmpty">✩</p>
-        <p class="star displayNone">⭐</p>
+        <p class="starEmpty ${starEmpty}">✩</p>
+        <p class="star ${star}">⭐</p>
+        <p class="removerQuadro"> 🗑️ </p>
+        <p class="editarQuadro"> ✏️ </p>
         </div>
         <div class="lists-content displayNone">
         <button class="adicionarLista"> ➕ Adicionar lista</button>
@@ -121,38 +134,75 @@ export default async function addBoards() {
 
   });
 
+
   await addBoardButton();
   await adicionarFavorito();
   await exibirBoard();
+  await deleteBoardButton();
+  await editBoardButton();
   propagation.stopPropagation('.board-name');
-  propagation.stopPropagation('.lists-content')
+  propagation.stopPropagation('.lists-content');
   propagation.stopPropagation('.board-header');
 
 }
 
-// Adiciona listas relacionadas ao board
-export async function addLists(id, element) {
-  let div_listas = "";
-  let listas = Array.from(await lista.getLists(getToken(), id));
+// ADICIONA OS EVENTOS PARA EDITAR O BOARD
+async function editBoardButton() {
+  let edit = Array.from(document.getElementsByClassName("editarQuadro"));
+  edit.forEach(button => {
+    button.addEventListener("click", (event) => {
+      let id = event.target.parentNode.parentNode.id; // id
+      // console.log(event.target.parentNode.parentNode.style.backgroundColor); // color
+      // console.log(event.target.parentNode.childNodes[1]); // Name
+      // console.log(event.target.parentNode.childNodes[1]);
+    })
+  })
+}
 
-  // Array para salvar os ids de cada lista e depois usar para buscar os cards
-  // let IDs = [];
-  listas.forEach(async (list) => {
-    div_listas += `
+
+// EXCLUIR AS LISTAS ASSOCIADAS AO BOARD
+async function deleteBoardButton() {
+  let trash = Array.from(document.getElementsByClassName("removerQuadro"));
+  trash.forEach(button => {
+    button.addEventListener("click", async (event) => {
+      let id = event.target.parentNode.parentNode.id;
+      console.log(id)
+      await deleteListsBoard(id);
+      await addBoards();
+    })
+  })
+}
+
+// BUSCA O ARRAY DE LISTAS E APAGA
+async function deleteListsBoard(board_id) {
+  let listsArray = Array.from(await lista.getLists(getToken(), board_id));
+  console.log("Lista de listas: ", listsArray);
+  listsArray.forEach(async (list) => {
+    await lista.deleteList(getToken(), list.id)
+  })
+  await removerQuadro(getToken(), board_id);
+}
+
+// Adiciona listas relacionadas ao board
+export async function addLists(board_id, element) {
+  // console.log("ADICIONANDO AS LISTAS")
+  let div_listas = "";
+  let listas = Array.from(await lista.getLists(getToken(), board_id));
+
+  // Verifica se o array não está vazio
+  if (listas.length != 0) {
+    listas.forEach(async (list) => {
+      div_listas += `
     <div draggable="true" list_id="${list.id}" class="lists-format">
-       <h3>${list.name}</h3> 
     </div>
 `;
-    // IDs.push(list.id);
-    element.innerHTML = div_listas
-    element.innerHTML += `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
-    await cards.addCards(list.id);
-  })
-
-  // Adiciona para cada lista os cards relacionados
-  // for (let i of IDs) {
-  // }
-
+      element.innerHTML = div_listas
+      element.innerHTML += `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
+      await cards.addCards(list.id);
+    })
+  } else {
+    element.innerHTML = `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
+  }
 
   propagation.stopPropagation('.lists-format');
   lista.addLista();
@@ -169,6 +219,40 @@ async function postBoard(data, token) {
       },
       body: JSON.stringify(data),
     });
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+async function removerQuadro(token, board_id) {
+  try {
+    const response = await fetch(`http://localhost:8087/api/v1/boards/${board_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + `${token}`,
+      },
+    });
+
+    console.log(response)
+  } catch (error) {
+    console.error("Erro:", error);
+  }
+}
+
+async function atualizarQuadro(token, board_id, data) {
+  try {
+    await fetch(`http://localhost:8087/api/v1/boards/${board_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + `${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
   } catch (error) {
     console.error("Error:", error);
   }
@@ -195,6 +279,7 @@ async function addBoardButton() {
     console.error("Error:", error);
   }
 }
+
 
 let formBoard = document.getElementById("form-addBoard");
 // Formatação para criação de boards (Salva favorito: false como padrão)

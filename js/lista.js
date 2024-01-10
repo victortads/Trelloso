@@ -2,8 +2,17 @@ import getToken from "./token.js";
 import addBoards, { addLists } from "./quadros.js";
 import propagation from "./stop_propagation.js";
 import { exibirBoard } from "./quadros.js";
+import cards from "./cards.js";
 
 let btn_lista = "";
+
+const deleteListButtonClickHandler = async (event) => {
+  // event.stopImmediatePropagation();
+  let id = event.target.parentNode.parentNode.getAttribute("list_id");
+  const listBoard = await lista.getList(getToken(), id);
+  await lista.deleteCardsList(id);
+  addLists(listBoard.board_id, document.getElementById(`${listBoard.board_id}`).childNodes[3]);
+};
 
 const lista = {
   // Implementar para adicionar listas naquele board
@@ -89,8 +98,43 @@ const lista = {
     } catch (error) {
       console.error("Error:", error);
     }
+  },
+  deleteList: async function (token, list_id) {
+    try {
+      const response = await fetch(`http://localhost:8087/api/v1/lists/${list_id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + `${token}`,
+        },
+      });
+
+      console.log(response)
+    } catch (error) {
+      console.error("Erro:", error);
+    }
+  },
+  deleteListButton: async function () {
+    let trashList = Array.from(document.getElementsByClassName("removerLista"));
+
+    trashList.forEach((button) => {
+      button.removeEventListener("click", deleteListButtonClickHandler);
+    });
+    trashList.forEach((button) => {
+      button.addEventListener("click", deleteListButtonClickHandler);
+    });
+  },
+
+  // BUSCA O ARRAY DE LISTAS E APAGA
+  deleteCardsList: async function (list_id) {
+    let cardsArray = Array.from(await cards.getCards(getToken(), list_id));
+    // console.log("Lista de cards: ", cardsArray);
+    cardsArray.forEach(async (card) => {
+      await cards.deleteCard(getToken(), card.id)
+    })
+    await lista.deleteList(getToken(), list_id);
   }
-};
+}
 
 export default lista;
 
