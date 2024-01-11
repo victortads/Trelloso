@@ -17,7 +17,7 @@ const cards = {
         let cardsContent = "<ul>";
         let IDs = [];
         cards.forEach((cards => {
-            cardsContent += `<li draggable="true" card_id="${cards.id}" class="cards-format">${cards.name}</li>`;
+            cardsContent += `<li draggable="true" card_id="${cards.id}" class="cards-format">${cards.name} <p class="removerCard">🗑️</p></li>`;
             IDs.push(cards.id);
         }));
 
@@ -30,7 +30,7 @@ const cards = {
             listsFormatElement.innerHTML += cardsContent;
         }
         await lista.deleteListButton()
-
+        propagation.stopPropagation(".removerCard");
         const btnaddCard = Array.from(document.getElementsByClassName("adicionarCards"));
         btnaddCard.forEach((element) => {
             element.addEventListener("click", (event) => {
@@ -74,10 +74,11 @@ const cards = {
                 if (event.target.classList.contains("positionAbsoluteCard")) {
                     let cardName = event.target.childNodes[0].textContent;
                     console.log(cardName)
-                    event.target.childNodes[1].classList.remove("displayOn");
-                    event.target.childNodes[1].classList.add("displayNone");
+                    event.target.childNodes[3].classList.remove("displayOn");
+                    event.target.childNodes[3].classList.add("displayNone");
 
-                    event.target.innerHTML = `${cardName}`;
+                    event.target.innerHTML = `${cardName} <p class="removerCard">🗑️</p>`;
+                    propagation.stopPropagation(".removerCard")
 
                     event.target.classList.remove("positionAbsoluteCard");
                     if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {

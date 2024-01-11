@@ -7,10 +7,9 @@ const coments = {
         let comments = await this.getComments(getToken(), card_id);
         // console.log(cards);
 
-        
         let commentContent = `<ul class="displayOn" id="ul-comentarios">`;
         comments.forEach((comment => {
-            commentContent += `<li draggable="true" comment_id="${comment.id}" class="comment-format">${comment.comment}</li>`;
+            commentContent += `<li draggable="true" comment_id="${comment.id}" class="comment-format"><div style="display: flex; column-gap: 1rem; flex-direction: row; ">${comment.comment} <p class="removerComentario"> 🗑️ </p></div></li>`;
         }));
 
         commentContent += `</ul> <button class="adicionarComentario"> ➕ Adicionar comentário</button>`;
@@ -21,10 +20,12 @@ const coments = {
 
         if (cardsFormatElement && cardsFormatElement.classList.contains("cards-format")) {
             // cardsFormatElement.innerHTML = ``;
-            cardsFormatElement.innerHTML = `<h3 class="card-name">${id.name}</h3>`;
+            cardsFormatElement.innerHTML = `<h3 class="card-name">${id.name}</h3> <p class="removerCard">🗑️</p>`;
             cardsFormatElement.innerHTML += commentContent;
         }
         propagation.stopPropagation(".card-name");
+        propagation.stopPropagation("#ul-comentarios");
+        propagation.stopPropagation(".removerCard")
 
         const btnaddComment = Array.from(document.getElementsByClassName("adicionarComentario"));
         btnaddComment.forEach((element) => {
@@ -53,6 +54,18 @@ const coments = {
 
             })
         })
+
+        const btnRmComentario = Array.from(document.getElementsByClassName("removerComentario"));
+        btnRmComentario.forEach((button) => {
+            button.addEventListener("click", async (event) => {
+                let id = event.target.parentNode.parentNode.getAttribute("comment_id");
+                let cardId = (await this.readComment(getToken(), id)).card_id;
+                // console.log(cardId)
+                await this.deleteComment(getToken(), id)
+                await this.addComments(cardId);
+            })
+        })
+
         return commentContent;
 
     },
@@ -98,10 +111,27 @@ const coments = {
                     Authorization: "Bearer " + `${token}`,
                 },
             });
-
-            console.log(response)
+            const result = await response.json();
+            console.log("Comentário apagado (RESULT): ", await result)
         } catch (error) {
             console.error("Erro:", error);
+        }
+    },
+    readComment: async function (token, comment_id) {
+        try {
+            const response = await fetch(`http://localhost:8087/api/v1/card_comments/${comment_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer" + ` ${token}`,
+                },
+            });
+
+            const result = await response.json();
+            // console.log("Success: ", result);
+            return result;
+        } catch (error) {
+            console.error("Error:", error);
         }
     }
 }
