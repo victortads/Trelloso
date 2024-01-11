@@ -19,6 +19,7 @@ export default async function adicionarFavorito() {
                 color: event.target.parentNode.parentNode.style.backgroundColor,
                 favorito: false
             }
+            event.target.parentNode.parentNode.setAttribute("favorito", false)
             atualizarBoard(data, event.target.parentNode.parentNode.id, getToken());
         })
     });
@@ -37,7 +38,7 @@ export default async function adicionarFavorito() {
                 color: event.target.parentNode.parentNode.style.backgroundColor,
                 favorito: true
             }
-            // console.log(event.target.parentNode.parentNode.id)
+            event.target.parentNode.parentNode.setAttribute("favorito", true);
             atualizarBoard(data, event.target.parentNode.parentNode.id, getToken());
         })
     })

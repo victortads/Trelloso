@@ -55,7 +55,7 @@ export async function exibirBoard() {
 }
 
 // Buscar quadros do usuário logado
-async function getBoards(token) {
+export async function getBoards(token) {
   try {
     const response = await fetch(
       "http://localhost:8087/api/v1/users/me/boards",
@@ -78,13 +78,6 @@ async function getBoards(token) {
 // Carrega os quadros na página de quadros
 board.addEventListener("click", async () => {
   try {
-    if (boardsContent.classList.contains("displayFlex")) {
-      boardsContent.classList.remove("displayFlex");
-      boardsContent.classList.add("displayNone");
-    } else {
-      boardsContent.classList.remove("displayNone");
-      boardsContent.classList.add("displayFlex");
-    }
 
     if (document.querySelector("#div-createCard").classList.contains("displayOn")) {
       document.querySelector("#div-createCard").classList.remove("displayOn");
@@ -109,15 +102,18 @@ export default async function addBoards() {
 
     let star;
     let starEmpty;
+    let favorito;
     if (element.favorito) {
       star = "displayOn";
-      starEmpty = "displayNone"
+      starEmpty = "displayNone";
+      favorito = "true";
     } else {
       star = "displayNone";
-      starEmpty = "displayOn"
+      starEmpty = "displayOn";
+      favorito = "false";
     }
     div_board += `
-    <div id="${element.id}" class="boards-format displayFlex" style="background-color: ${element.color};">
+    <div id="${element.id}" favorito="${favorito}" class="boards-format displayFlex" style="background-color: ${element.color};">
     <div class="board-header displayFlex">    
     <p class="board-name">${element.name}</p>
         <p class="starEmpty ${starEmpty}">✩</p>
