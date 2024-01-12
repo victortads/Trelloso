@@ -115,11 +115,10 @@ export default async function addBoards() {
     div_board += `
     <div id="${element.id}" favorito="${favorito}" class="boards-format displayFlex" style="background-color: ${element.color};">
     <div class="board-header displayFlex">    
-    <p class="board-name">${element.name}</p>
+    <p contenteditable="true" class="board-name">${element.name}</p>
         <p class="starEmpty ${starEmpty}">✩</p>
         <p class="star ${star}">⭐</p>
         <p class="removerQuadro"> 🗑️ </p>
-        <p class="editarQuadro"> ✏️ </p>
         </div>
         <div class="lists-content displayNone">
         <button class="adicionarLista"> ➕ Adicionar lista</button>
@@ -130,7 +129,6 @@ export default async function addBoards() {
 
   });
 
-
   await addBoardButton();
   await adicionarFavorito();
   await exibirBoard();
@@ -139,6 +137,35 @@ export default async function addBoards() {
   propagation.stopPropagation('.board-name');
   propagation.stopPropagation('.lists-content');
   propagation.stopPropagation('.board-header');
+
+  // Adiciona evento de escuta para o evento 'blur' no elementos da classe "board-name"
+  const boardNameElements = document.querySelectorAll('.board-name');
+  boardNameElements.forEach((boardNameElement) => {
+
+    // Adiciona um evento de mouseover para exibir a dica
+    boardNameElement.addEventListener('mouseover', () => {
+      boardNameElement.setAttribute('title', 'Clique para editar');
+    });
+
+    // Adiciona um evento de mouseout para remover a dica
+    boardNameElement.addEventListener('mouseout', () => {
+      boardNameElement.removeAttribute('title');
+    });
+
+    boardNameElement.addEventListener('blur', async () => {
+      const board = boardNameElement.parentElement.parentElement; // Obtém o ID do quadro
+      const boardName = boardNameElement.innerText; // Obtém o novo nome do quadro
+
+      let boardData = {
+        name: boardName,
+        color: board.style.backgroundColor,
+        favorito: board.getAttribute("favorito"),
+      };
+      // console.log(boardData)
+      // Chama a função para atualizar o quadro
+      await atualizarQuadro(getToken(), board.id, boardData);
+    });
+  });
 
 }
 

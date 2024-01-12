@@ -17,6 +17,20 @@ user.addEventListener("click", () => {
     content.classList.add("displayNone");
     divAtualizar.classList.remove("displayNone");
     divAtualizar.classList.add("displayOn");
+    if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
+      document.getElementById("div-adicionar-lista").classList.remove("displayOn");
+      document.getElementById("div-adicionar-lista").classList.add("displayNone");
+    }
+
+    if (document.getElementById("div-adicionar-card").classList.contains("displayOn")) {
+      document.querySelector("#div-adicionar-card").classList.remove("displayOn");
+      document.querySelector("#div-adicionar-card").classList.add("displayNone");
+    }
+
+    if (document.getElementById("div-adicionar-comentario").classList.contains("displayOn")) {
+      document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
+      document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
+    }
   } else {
     divAtualizar.classList.remove("displayOn");
     divAtualizar.classList.add("displayNone");
