@@ -26,9 +26,10 @@ const cards = {
 
         let id = await lista.getList(getToken(), list_id);
         if (listsFormatElement) {
-            listsFormatElement.innerHTML = `<div class="div-list"><h3 class="card-name">${id.name}</h3> <p class="removerLista"> 🗑️ </p></div>`;
+            listsFormatElement.innerHTML = `<div class="div-list"><h3 contenteditable="true" class="card-name">${id.name}</h3> <p class="removerLista"> 🗑️ </p></div>`;
             listsFormatElement.innerHTML += cardsContent;
         }
+        lista.eventEditList();
         await lista.deleteListButton()
         propagation.stopPropagation(".removerCard");
         const btnaddCard = Array.from(document.getElementsByClassName("adicionarCards"));

@@ -114,6 +114,22 @@ const lista = {
       console.error("Erro:", error);
     }
   },
+  updateList: async function (token, list_id, data) {
+    try {
+      const response = await fetch(`http://localhost:8087/api/v1/lists/${list_id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer" + ` ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      console.log("Lista atualizada (RESULT): ", result)
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  },
   deleteListButton: async function () {
     let trashList = Array.from(document.getElementsByClassName("removerLista"));
 
@@ -133,6 +149,36 @@ const lista = {
       await cards.deleteCard(getToken(), card.id)
     })
     await lista.deleteList(getToken(), list_id);
+  },
+  eventEditList: function () {
+    // Adiciona evento de escuta para o evento 'blur' nos elementos da classe "card-name"
+    const cardNameElements = document.querySelectorAll('.card-name');
+
+    cardNameElements.forEach((cardNameElement) => {
+      // Adiciona um evento de mouseover para exibir a dica
+      cardNameElement.addEventListener('mouseover', () => {
+        cardNameElement.setAttribute('title', 'Clique para editar');
+      });
+
+      // Adiciona um evento de mouseout para remover a dica
+      cardNameElement.addEventListener('mouseout', () => {
+        cardNameElement.removeAttribute('title');
+      });
+
+      cardNameElement.addEventListener('blur', async (event) => {
+        event.stopImmediatePropagation();
+        const list = cardNameElement.parentElement; // Obtém o elemento pai da lista
+        const listId = list.parentElement.getAttribute("list_id"); // Obtém o ID da lista
+        const board = await this.getList(getToken(), listId);
+        let data = {
+          name: list.childNodes[0].innerText,
+          board_id: board.board_id,
+          position: 0
+        }
+        console.log(data);
+        await this.updateList(getToken(), listId, data);
+      });
+    });
   }
 }
 
