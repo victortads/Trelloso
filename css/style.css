@@ -131,7 +131,7 @@ li {
 }
 
 #atualizar-cadastro {
-  height: 35rem;
+  height: 37rem;
   top: -10%;
 }
 
@@ -156,7 +156,7 @@ fieldset {
 
 #div-createCard {
   position: absolute;
-  height: 16rem;
+  height: 20rem;
   width: 40rem;
   top: 0%;
   left: 50%;
@@ -185,6 +185,14 @@ fieldset {
   z-index: 4;
 }
 
+.headerForm {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fecharForm {
+  cursor: pointer;
+}
 
 /* TERMINO FORMATAÇÃO DIV LOGIN E CADASTRO */
 
@@ -195,7 +203,7 @@ fieldset {
 }
 
 .input-form {
-  height: 2rem;
+  height: 2.2rem;
   border: none;
   padding: 0.5rem;
   border-radius: 0.2rem;
@@ -212,6 +220,11 @@ fieldset {
   height: 3.5rem;
   border: none;
   border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+.adicionarCards{
+  cursor: pointer;
 }
 
 .comment-format {
@@ -283,6 +296,7 @@ fieldset {
 
 .adicionarComentario {
   margin-top: 1rem;
+  cursor: pointer;
 }
 
 .div-list {
@@ -309,6 +323,32 @@ fieldset {
   transition: 0.5s;
 }
 
+.button {
+  margin-top: 0.5rem;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem;
+  background-color: #353446;
+  color: white;
+  border-bottom: 1px solid #4fa1ff;
+  transition: 0.5s;
+}
+
+#apagarUsuario:hover {
+  padding-bottom: 0.5rem;
+  transition: 0.5s;
+}
+
+#atualizar-home:hover {
+  padding-bottom: 0.5rem;
+  transition: 0.5s;
+}
+
+#button-atualizar {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* TERMINO FORMATAÇÃO DOS BOTÕES */
 
 /* FORMATAÇÃO DOS BOARDS */
@@ -328,7 +368,7 @@ fieldset {
   height: 15rem;
   border-radius: 1rem;
   z-index: 1;
-  transition: 0.8s;
+  transition: 1.5s;
   flex-direction: column;
 }
 

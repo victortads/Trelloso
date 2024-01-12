@@ -9,7 +9,7 @@ const coments = {
 
         let commentContent = `<ul class="displayOn" id="ul-comentarios">`;
         comments.forEach((comment => {
-            commentContent += `<li draggable="true" comment_id="${comment.id}" class="comment-format"><div style="display: flex; column-gap: 1rem; flex-direction: row; ">${comment.comment} <p class="removerComentario"> 🗑️ </p></div></li>`;
+            commentContent += `<li draggable="true" style="display: flex; column-gap: 1rem; flex-direction: row; " comment_id="${comment.id}" class="comment-format"><div class="comment-content" contenteditable="true">${comment.comment}</div><p class="removerComentario"> 🗑️ </p></li>`;
         }));
 
         commentContent += `</ul> <button class="adicionarComentario"> ➕ Adicionar comentário</button>`;
@@ -27,6 +27,7 @@ const coments = {
         propagation.stopPropagation("#ul-comentarios");
         propagation.stopPropagation(".removerCard")
         cards.eventEditCard();
+        this.eventEditComment();
 
         const btnaddComment = Array.from(document.getElementsByClassName("adicionarComentario"));
         btnaddComment.forEach((element) => {
@@ -59,9 +60,9 @@ const coments = {
         const btnRmComentario = Array.from(document.getElementsByClassName("removerComentario"));
         btnRmComentario.forEach((button) => {
             button.addEventListener("click", async (event) => {
-                let id = event.target.parentNode.parentNode.getAttribute("comment_id");
+                let id = event.target.parentNode.getAttribute("comment_id");
                 let cardId = (await this.readComment(getToken(), id)).card_id;
-                // console.log(cardId)
+                // console.log(id)
                 await this.deleteComment(getToken(), id)
                 await this.addComments(cardId);
             })
@@ -103,6 +104,22 @@ const coments = {
             console.error("Error:", error);
         }
     },
+    updateComment: async function (token, comment_id, data) {
+        try {
+            const response = await fetch(`http://localhost:8087/api/v1/card_comments/${comment_id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer" + ` ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+            const result = await response.json();
+            console.log("Comentario atualizado (RESULT): ", await result)
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    },
     deleteComment: async function (token, comment_id) {
         try {
             const response = await fetch(`http://localhost:8087/api/v1/card_comments/${comment_id}`, {
@@ -134,6 +151,37 @@ const coments = {
         } catch (error) {
             console.error("Error:", error);
         }
+    },
+    eventEditComment: function () {
+        const commentNameElements = document.querySelectorAll('.comment-content');
+
+        const handleCardEdit = async (event) => {
+            event.stopImmediatePropagation();
+
+            const commentNameElements = event.target.textContent;
+            const comment_id = event.target.parentElement.getAttribute("comment_id");
+            let data = {
+                comment: commentNameElements
+            }
+            // console.log(data);
+            await this.updateComment(getToken(), comment_id, data);
+        };
+
+        const handleCardMouseOver = (event) => {
+            const commentNameElements = event.target;
+            commentNameElements.setAttribute('title', 'Clique para editar');
+        };
+
+        const handleCardMouseOut = (event) => {
+            const commentNameElements = event.target;
+            commentNameElements.removeAttribute('title');
+        };
+
+        commentNameElements.forEach((commentNameElements) => {
+            commentNameElements.addEventListener('mouseover', handleCardMouseOver);
+            commentNameElements.addEventListener('mouseout', handleCardMouseOut);
+            commentNameElements.addEventListener('blur', handleCardEdit);
+        });
     }
 }
 document.querySelector("#div-adicionar-comentario").addEventListener("submit", async (event) => {

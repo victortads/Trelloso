@@ -15,6 +15,8 @@ async function verifyToken(data) {
       localStorage.setItem("token", result.access_token);
       alert("Token adicionado ao LS!");
       readUser(result.access_token);
+    } else{
+      alert("Alguma coisa errada!")
     }
   } catch (error) {
     console.error("Error:", error);

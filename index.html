@@ -66,6 +66,10 @@
 
   <div id="div-createCard" class="displayNone">
     <form action="" id="form-addBoard">
+      <div class="headerForm">
+        <h3>Quadro</h3>
+        <p class="fecharForm">✖️</p>
+      </div>
       <input type="text" id="board-name" placeholder="Nome do quadro" required />
       <fieldset>
         <label for="color">Escolha a cor</label>
@@ -162,12 +166,20 @@
 
       <button id="btn-atualizar" type="submit" class="submit-form">Atualizar</button>
     </form>
+
+    <span id="button-atualizar">
+      <div><button class="button" id="apagarUsuario">Apagar usuário</button></div>
+      <div><button class="button" id="atualizar-home"> Voltar para a página principal </button></div>
+    </span>
   </div>
 
 
   <div id="div-adicionar-lista" class="formatacaoForm displayNone">
     <form class="form" id="form-lista">
-      <h3>Lista</h3>
+      <div class="headerForm">
+        <h3>Lista</h3>
+        <p class="fecharForm">✖️</p>
+      </div>
       <fieldset>
         <label class="label-form">Board ID</label>
         <input id="input-lista-id" type="text" class="input-form" required readonly />
@@ -186,7 +198,10 @@
 
   <div id="div-adicionar-card" class="formatacaoForm displayNone">
     <form class="form" id="form-card">
-      <h3>Card</h3>
+      <div class="headerForm">
+        <h3>Card</h3>
+        <p class="fecharForm">✖️</p>
+      </div>
       <fieldset>
         <label class="label-form">List ID</label>
         <input id="input-card-id" type="text" class="input-form" required readonly />
@@ -202,7 +217,10 @@
 
   <div id="div-adicionar-comentario" class="formatacaoForm displayNone">
     <form class="form" id="form-comentario">
-      <h3>Comentário</h3>
+      <div class="headerForm">
+        <h3>Comentario</h3>
+        <p class="fecharForm">✖️</p>
+      </div>
       <fieldset>
         <label class="label-form">Card ID</label>
         <input id="input-comentario-id" type="text" class="input-form" readonly />
