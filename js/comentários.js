@@ -20,12 +20,13 @@ const coments = {
 
         if (cardsFormatElement && cardsFormatElement.classList.contains("cards-format")) {
             // cardsFormatElement.innerHTML = ``;
-            cardsFormatElement.innerHTML = `<h3 class="card-name">${id.name}</h3> <p class="removerCard">🗑️</p>`;
+            cardsFormatElement.innerHTML = `<h3 contenteditable="true" class="card-name">${id.name}</h3> <p class="removerCard">🗑️</p>`;
             cardsFormatElement.innerHTML += commentContent;
         }
         propagation.stopPropagation(".card-name");
         propagation.stopPropagation("#ul-comentarios");
         propagation.stopPropagation(".removerCard")
+        cards.eventEditCard();
 
         const btnaddComment = Array.from(document.getElementsByClassName("adicionarComentario"));
         btnaddComment.forEach((element) => {

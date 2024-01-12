@@ -63,15 +63,15 @@ const cards = {
         })
 
         let cardsFunction = Array.from(document.getElementsByClassName("cards-format"));
-        cardsFunction.forEach((card)=>{
-            card.addEventListener("click", async (event) =>{
+        cardsFunction.forEach((card) => {
+            card.addEventListener("click", async (event) => {
                 event.stopPropagation();
                 event.stopImmediatePropagation();
 
-                
+
                 // console.log(event.target.classList);
                 // console.log(event.target.childNodes);
-                
+
                 if (event.target.classList.contains("positionAbsoluteCard")) {
                     let cardName = event.target.childNodes[0].textContent;
                     console.log(cardName)
@@ -83,34 +83,29 @@ const cards = {
 
                     event.target.classList.remove("positionAbsoluteCard");
                     if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
-                      document.getElementById("div-adicionar-lista").classList.remove("displayOn");
-                      document.getElementById("div-adicionar-lista").classList.add("displayNone");
+                        document.getElementById("div-adicionar-lista").classList.remove("displayOn");
+                        document.getElementById("div-adicionar-lista").classList.add("displayNone");
                     }
-            
+
                     if (document.getElementById("div-adicionar-card").classList.contains("displayOn")) {
-                      document.querySelector("#div-adicionar-card").classList.remove("displayOn");
-                      document.querySelector("#div-adicionar-card").classList.add("displayNone");
+                        document.querySelector("#div-adicionar-card").classList.remove("displayOn");
+                        document.querySelector("#div-adicionar-card").classList.add("displayNone");
                     }
-            
+
                     if (document.getElementById("div-adicionar-comentario").classList.contains("displayOn")) {
-                      document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
-                      document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
+                        document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
+                        document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
                     }
-            
-                  } else {
+
+                } else {
                     // event.target.childNodes[1].classList.remove("displayNone");
                     // event.target.childNodes[1].classList.add("displayFlex");
                     event.target.classList.add("positionAbsoluteCard");
                     await coments.addComments(event.target.getAttribute("card_id"));
                     // console.log(event.target.childNodes[3])
-                  }
+                }
             })
         })
-
-        // for (let i of IDs) {
-        //     await coments.addComments(i);
-        //     // await tags.addTags(i);
-        // }
 
         return cardsContent;
 
@@ -179,6 +174,60 @@ const cards = {
         } catch (error) {
             console.error("Erro:", error);
         }
+    },
+    updateCard: async function (token, card_id, data) {
+        try {
+            const response = await fetch(`http://localhost:8087/api/v1/cards/${card_id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer" + ` ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+            const result = await response.json();
+            console.log("Card enviado (RESULT): " + await result)
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    },
+    eventEditCard: function () {
+        const cardNameElements = document.querySelectorAll('.card-name');
+
+        const handleCardEdit = async (event) => {
+            event.stopImmediatePropagation();
+
+            const cardNameElement = event.target;
+            const cardId = cardNameElement.parentElement.getAttribute("card_id");
+            const listId = cardNameElement.parentElement.parentElement.parentElement.getAttribute("list_id");
+            const dataAtual = new Date();
+            const dataFormatada = dataAtual.toISOString();
+            let data = {
+                name: cardNameElement.childNodes[0].textContent,
+                date: dataFormatada,
+                list_id: listId,
+                position: 0
+            }
+            // console.log(listId);
+            console.log(data);
+            await this.updateCard(getToken(), cardId, data);
+        };
+
+        const handleCardMouseOver = (event) => {
+            const cardNameElement = event.target;
+            cardNameElement.setAttribute('title', 'Clique para editar');
+        };
+
+        const handleCardMouseOut = (event) => {
+            const cardNameElement = event.target;
+            cardNameElement.removeAttribute('title');
+        };
+
+        cardNameElements.forEach((cardNameElement) => {
+            cardNameElement.addEventListener('mouseover', handleCardMouseOver);
+            cardNameElement.addEventListener('mouseout', handleCardMouseOut);
+            cardNameElement.addEventListener('blur', handleCardEdit);
+        });
     }
 }
 
