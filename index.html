@@ -20,19 +20,23 @@
     <!-- HEADER -->
 
     <div id="header" class="displayOn">
-      <button id="home">
+      <div id="home">
         <h1>Trelloso</h1>
-        <!-- <img src="./assets/logoHome.jpg" alt="" /> -->
-      </button>
+        <img src="./assets/logoHome.jpg" alt="" />
+      </div>
+
       <div id="div-user">
         <button id="btn-rmtoken" class="displayNone">
           Sair
           <img src="https://cdn-icons-png.flaticon.com/128/657/657059.png" alt="" />
         </button>
-        <div id="user">
-          <img src="" alt="Imagem do usuário" id="image-user" class="displayNone" />
+
+        <div id="format-user">
+          <div id="user">
+            <img src="" alt="Imagem do usuário" id="image-user" class="displayNone" />
+          </div>
+          <button id="user-show" class="displayNone"></button>
         </div>
-        <button id="user-show" class="displayNone"></button>
       </div>
     </div>
 
@@ -42,8 +46,8 @@
 
     <div id="nav" class="displayOn">
       <ul>
-        <li><button id="boards">Quadros</button></li>
-        <li><button id="favoritos">Favoritos</button></li>
+        <li><button id="boards" class="btnNav">Quadros</button></li>
+        <li><button id="favoritos" class="btnNav">Favoritos</button></li>
       </ul>
     </div>
 
@@ -56,164 +60,163 @@
     </div>
 
     <!-- TERMINO CONTENT -->
-
-    <!-- FORMS -->
-
-
-    <div id="div-createCard" class="displayNone">
-      <form action="" id="form-addBoard">
-        <input type="text" id="board-name" placeholder="Nome do quadro" required/>
-        <fieldset>
-          <label for="color">Escolha a cor</label>
-          <input id="board-color" list="presets" type="color" name="color" >
-          <datalist id="presets">
-            <option value="#454B4D">Grey</option>
-            <option value="#258D4D">White</option>
-            <option value="#6699cc">Blue</option>
-            <option value="#ae4d7b">Pink</option>
-          </datalist>
-        </fieldset>
-        <input type="submit" value="Adicionar">
-      </form>
-    </div>
-
-
-    <div id="div_cadastro" class="formatacaoForm displayNone">
-      <form action="" id="form-cadastro" class="form">
-        <h3>Cadastro</h3>
-
-        <fieldset>
-          <label class="label-form">nome</label>
-          <input type="text" id="input-nome" class="input-form" required/>
-        </fieldset>
-
-        <fieldset>
-          <label class="label-form">username</label>
-          <input type="text" id="input-username" class="input-form" required/>
-        </fieldset>
-
-        <fieldset>
-          <label class="label-form">Avatar URL</label>
-          <input type="text" id="input-avatarurl" class="input-form" required/>
-        </fieldset>
-
-        <fieldset>
-          <label class="label-form">senha <span class="view">👀</span></label>
-          <input type="password" id="input-senha" class="input-form" required/>
-        </fieldset>
-
-        <button type="submit" id="btn-create" class="submit-form">Salvar</button>
-      </form>
-      <div>
-        <button id="btn-withLogin" class="alternative">Possui login?</button>
-      </div>
-    </div>
-
-
-    <div id="div_login" class="formatacaoForm displayNone">
-      <form action="" id="form-login" class="form">
-        <h3>Login</h3>
-
-        <fieldset>
-          <label class="label-form">username</label>
-          <input type="text" id="input-user_login" name="username" class="input-form" required/>
-        </fieldset>
-
-        <fieldset>
-          <label class="label-form">senha <span class="view">👀</span></label>
-          <input type="password" id="input-passsword_login" name="password" class="input-form" required/>
-        </fieldset>
-
-        <button type="submit" id="btn-login" class="submit-form">login</button>
-      </form>
-      <div>
-        <button id="btn-noLogin" class="alternative">Não possui login?</button>
-      </div>
-    </div>
-
-
-    <div id="atualizar-cadastro" class="formatacaoForm displayNone">
-      <form id="form-atualizar" class="form">
-        <h3>Atualizar Cadastro</h3>
-
-        <fieldset>
-          <label class="label-form">Nome</label>
-          <input id="input-atualizar-nome" type="text" class="input-form" required/>
-        </fieldset>
-
-        <fieldset>
-          <label class="label-form">Username</label>
-          <input id="input-atualizar-username" type="text" class="input-form" readonly />
-        </fieldset>
-
-        <fieldset>
-          <label class="label-form">Avatar Url</label>
-          <input id="input-atualizar-url" type="text" class="input-form" required/>
-        </fieldset>
-
-        <fieldset>
-          <label class="label-form">senha</label>
-          <input id="input-atualizar-senha" type="text" class="input-form" required />
-        </fieldset>
-
-        <button id="btn-atualizar" type="submit" class="submit-form">Atualizar</button>
-      </form>
-    </div>
-
-
-    <div id="div-adicionar-lista" class="formatacaoForm displayNone">
-      <form class="form" id="form-lista">
-        <h3>Lista</h3>
-        <fieldset>
-          <label class="label-form">Board ID</label>
-          <input id="input-lista-id" type="text" class="input-form" required readonly />
-        </fieldset>
-        <fieldset>
-          <label class="label-form">Nome da lista</label>
-          <input id="input-lista-nome" type="text" class="input-form" required />
-        </fieldset>
-        <!-- <fieldset>
-          <label class="label-form">Position</label>
-          <input id="input-lista-position" type="text" class="input-form" required />
-        </fieldset> -->
-        <button id="submit-list" class="submit-form">Adicionar lista</button>
-      </form>
-    </div>
-
-    <div id="div-adicionar-card" class="formatacaoForm displayNone">
-      <form class="form" id="form-card">
-        <h3>Card</h3>
-        <fieldset>
-          <label class="label-form">List ID</label>
-          <input id="input-card-id" type="text" class="input-form" required readonly />
-        </fieldset>
-        <fieldset>
-          <label class="label-form">Nome do card</label>
-          <input id="input-card-nome" type="text" class="input-form" required />
-        </fieldset>
-        <button id="submit-card" class="submit-form" type="submit">Adicionar card</button>
-      </form>
-    </div>
-
-    
-    <div id="div-adicionar-comentario" class="formatacaoForm displayNone">
-      <form class="form" id="form-comentario">
-        <h3>Comentário</h3>
-        <fieldset>
-          <label class="label-form">Card ID</label>
-          <input id="input-comentario-id" type="text" class="input-form" readonly />
-        </fieldset>
-        <fieldset>
-          <label class="label-form">Nome do comentario</label>
-          <input id="input-comentario-nome" type="text" class="input-form" required />
-        </fieldset>
-        <button id="submit-comentario" class="submit-form" type="submit">Adicionar comentario</button>
-      </form>
-    </div>
-
-
-    <!-- TERMINO FORMS -->
   </div>
+
+  <!-- FORMS -->
+
+  <div id="div-createCard" class="displayNone">
+    <form action="" id="form-addBoard">
+      <input type="text" id="board-name" placeholder="Nome do quadro" required />
+      <fieldset>
+        <label for="color">Escolha a cor</label>
+        <input id="board-color" list="presets" type="color" name="color">
+        <datalist id="presets">
+          <option value="#454B4D">Grey</option>
+          <option value="#258D4D">White</option>
+          <option value="#6699cc">Blue</option>
+          <option value="#ae4d7b">Pink</option>
+        </datalist>
+      </fieldset>
+      <input type="submit" value="Adicionar">
+    </form>
+  </div>
+
+
+  <div id="div_cadastro" class="formatacaoForm displayNone">
+    <form action="" id="form-cadastro" class="form">
+      <h3>Cadastro</h3>
+
+      <fieldset>
+        <label class="label-form">nome</label>
+        <input type="text" id="input-nome" class="input-form" required />
+      </fieldset>
+
+      <fieldset>
+        <label class="label-form">username</label>
+        <input type="text" id="input-username" class="input-form" required />
+      </fieldset>
+
+      <fieldset>
+        <label class="label-form">Avatar URL</label>
+        <input type="text" id="input-avatarurl" class="input-form" required />
+      </fieldset>
+
+      <fieldset>
+        <label class="label-form">senha <span class="view">👀</span></label>
+        <input type="password" id="input-senha" class="input-form" required />
+      </fieldset>
+
+      <button type="submit" id="btn-create" class="submit-form">Salvar</button>
+    </form>
+    <div>
+      <button id="btn-withLogin" class="alternative">Possui login?</button>
+    </div>
+  </div>
+
+
+  <div id="div_login" class="formatacaoForm displayNone">
+    <form action="" id="form-login" class="form">
+      <h3>Login</h3>
+
+      <fieldset>
+        <label class="label-form">username</label>
+        <input type="text" id="input-user_login" name="username" class="input-form" required />
+      </fieldset>
+
+      <fieldset>
+        <label class="label-form">senha <span class="view">👀</span></label>
+        <input type="password" id="input-passsword_login" name="password" class="input-form" required />
+      </fieldset>
+
+      <button type="submit" id="btn-login" class="submit-form">login</button>
+    </form>
+    <div>
+      <button id="btn-noLogin" class="alternative">Não possui login?</button>
+    </div>
+  </div>
+
+
+  <div id="atualizar-cadastro" class="formatacaoForm displayNone">
+    <form id="form-atualizar" class="form">
+      <h3>Atualizar Cadastro</h3>
+
+      <fieldset>
+        <label class="label-form">Nome</label>
+        <input id="input-atualizar-nome" type="text" class="input-form" required />
+      </fieldset>
+
+      <fieldset>
+        <label class="label-form">Username</label>
+        <input id="input-atualizar-username" type="text" class="input-form" readonly />
+      </fieldset>
+
+      <fieldset>
+        <label class="label-form">Avatar Url</label>
+        <input id="input-atualizar-url" type="text" class="input-form" required />
+      </fieldset>
+
+      <fieldset>
+        <label class="label-form">senha</label>
+        <input id="input-atualizar-senha" type="text" class="input-form" required />
+      </fieldset>
+
+      <button id="btn-atualizar" type="submit" class="submit-form">Atualizar</button>
+    </form>
+  </div>
+
+
+  <div id="div-adicionar-lista" class="formatacaoForm displayNone">
+    <form class="form" id="form-lista">
+      <h3>Lista</h3>
+      <fieldset>
+        <label class="label-form">Board ID</label>
+        <input id="input-lista-id" type="text" class="input-form" required readonly />
+      </fieldset>
+      <fieldset>
+        <label class="label-form">Nome da lista</label>
+        <input id="input-lista-nome" type="text" class="input-form" required />
+      </fieldset>
+      <!-- <fieldset>
+      <label class="label-form">Position</label>
+      <input id="input-lista-position" type="text" class="input-form" required />
+    </fieldset> -->
+      <button id="submit-list" class="submit-form">Adicionar lista</button>
+    </form>
+  </div>
+
+  <div id="div-adicionar-card" class="formatacaoForm displayNone">
+    <form class="form" id="form-card">
+      <h3>Card</h3>
+      <fieldset>
+        <label class="label-form">List ID</label>
+        <input id="input-card-id" type="text" class="input-form" required readonly />
+      </fieldset>
+      <fieldset>
+        <label class="label-form">Nome do card</label>
+        <input id="input-card-nome" type="text" class="input-form" required />
+      </fieldset>
+      <button id="submit-card" class="submit-form" type="submit">Adicionar card</button>
+    </form>
+  </div>
+
+
+  <div id="div-adicionar-comentario" class="formatacaoForm displayNone">
+    <form class="form" id="form-comentario">
+      <h3>Comentário</h3>
+      <fieldset>
+        <label class="label-form">Card ID</label>
+        <input id="input-comentario-id" type="text" class="input-form" readonly />
+      </fieldset>
+      <fieldset>
+        <label class="label-form">Nome do comentario</label>
+        <input id="input-comentario-nome" type="text" class="input-form" required />
+      </fieldset>
+      <button id="submit-comentario" class="submit-form" type="submit">Adicionar comentario</button>
+    </form>
+  </div>
+
+  <!-- TERMINO FORMS -->
+
 </body>
 
 </html>

@@ -12,17 +12,16 @@ favoritos.addEventListener("click", async () => {
 export async function addFavoriteBoards() {
     let favBoardsList = content.childNodes;
     // Elimina logo o BUTTON da lista
-    content.childNodes[favBoardsList.length - 1].remove();
-    console.log(content.childNodes)
+    if (content.childNodes[favBoardsList.length - 1].nodeName === "BUTTON") {
+        console.log("É button")
+        content.childNodes[favBoardsList.length - 1].remove();
+    }
+
     for (let i = favBoardsList.length - 1; i >= 1; i--) {
         if (content.childNodes[i].nodeName === "DIV") {
-            if (content.childNodes[i].getAttribute("favorito") === "false"){
+            if (content.childNodes[i].getAttribute("favorito") === "false") {
                 content.childNodes[i].remove()
             }
-        }
-        if (content.childNodes[i].nodeName === "BUTTON") {
-            console.log("É button")
-            content.childNodes[i].remove();
         }
     }
 }
