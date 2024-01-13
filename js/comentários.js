@@ -9,7 +9,7 @@ const coments = {
 
         let commentContent = `<ul class="displayOn" id="ul-comentarios">`;
         comments.forEach((comment => {
-            commentContent += `<li draggable="true" style="display: flex; column-gap: 1rem; flex-direction: row; " comment_id="${comment.id}" class="comment-format"><div class="comment-content" contenteditable="true">${comment.comment}</div><p class="removerComentario"> 🗑️ </p></li>`;
+            commentContent += `<li style="display: flex; column-gap: 1rem; flex-direction: row; " comment_id="${comment.id}" class="comment-format"><div class="comment-content" contenteditable="true">${comment.comment}</div><p class="removerComentario"> 🗑️ </p></li>`;
         }));
 
         commentContent += `</ul> <button class="adicionarComentario"> ➕ Adicionar comentário</button>`;
@@ -23,39 +23,10 @@ const coments = {
             cardsFormatElement.innerHTML = `<h3 contenteditable="true" class="card-name">${id.name}</h3> <p class="removerCard">🗑️</p>`;
             cardsFormatElement.innerHTML += commentContent;
         }
-        propagation.stopPropagation(".card-name");
-        propagation.stopPropagation("#ul-comentarios");
-        propagation.stopPropagation(".removerCard")
         cards.eventEditCard();
         this.eventEditComment();
 
-        const btnaddComment = Array.from(document.getElementsByClassName("adicionarComentario"));
-        btnaddComment.forEach((element) => {
-            element.addEventListener("click", (event) => {
-                event.stopImmediatePropagation()
-                if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
-                    document.getElementById("div-adicionar-lista").classList.remove("displayOn");
-                    document.getElementById("div-adicionar-lista").classList.add("displayNone");
-                }
 
-                if (document.getElementById("div-adicionar-card").classList.contains("displayOn")) {
-                    document.querySelector("#div-adicionar-card").classList.remove("displayOn");
-                    document.querySelector("#div-adicionar-card").classList.add("displayNone");
-                }
-                let cardId = event.target.parentNode.getAttribute("card_id");
-
-                if (document.querySelector("#div-adicionar-comentario").classList.contains("displayNone")) {
-                    document.querySelector("#div-adicionar-comentario").classList.remove("displayNone");
-                    document.querySelector("#div-adicionar-comentario").classList.add("displayOn");
-                } else {
-                    document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
-                    document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
-                }
-
-                document.getElementById("input-comentario-id").value = cardId;
-
-            })
-        })
 
         const btnRmComentario = Array.from(document.getElementsByClassName("removerComentario"));
         btnRmComentario.forEach((button) => {
@@ -182,6 +153,36 @@ const coments = {
             commentNameElements.addEventListener('mouseout', handleCardMouseOut);
             commentNameElements.addEventListener('blur', handleCardEdit);
         });
+    },
+    eventAddComment: function () {
+        const btnaddComment = Array.from(document.getElementsByClassName("adicionarComentario"));
+        btnaddComment.forEach((element) => {
+            element.addEventListener("click", (event) => {
+                event.stopImmediatePropagation();
+                // console.log("Funcionando")
+                if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
+                    document.getElementById("div-adicionar-lista").classList.remove("displayOn");
+                    document.getElementById("div-adicionar-lista").classList.add("displayNone");
+                }
+
+                if (document.getElementById("div-adicionar-card").classList.contains("displayOn")) {
+                    document.querySelector("#div-adicionar-card").classList.remove("displayOn");
+                    document.querySelector("#div-adicionar-card").classList.add("displayNone");
+                }
+                let cardId = event.target.parentNode.getAttribute("card_id");
+
+                if (document.querySelector("#div-adicionar-comentario").classList.contains("displayNone")) {
+                    document.querySelector("#div-adicionar-comentario").classList.remove("displayNone");
+                    document.querySelector("#div-adicionar-comentario").classList.add("displayOn");
+                } else {
+                    document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
+                    document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
+                }
+
+                document.getElementById("input-comentario-id").value = cardId;
+
+            })
+        })
     }
 }
 document.querySelector("#div-adicionar-comentario").addEventListener("submit", async (event) => {

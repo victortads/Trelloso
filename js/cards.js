@@ -3,6 +3,7 @@ import coments from "./comentários.js";
 import lista from "./lista.js";
 import tags from "./tags.js";
 import propagation from "./stop_propagation.js";
+import members from "./members.js";
 
 let boardId = "";
 
@@ -15,10 +16,8 @@ const cards = {
         let cards = Array.from(await this.getCards(getToken(), list_id));
         // console.log(cards);
         let cardsContent = "<ul>";
-        let IDs = [];
         cards.forEach((cards => {
             cardsContent += `<li draggable="true" card_id="${cards.id}" class="cards-format">${cards.name} <p class="removerCard">🗑️</p></li>`;
-            IDs.push(cards.id);
         }));
 
         cardsContent += `</ul> <button class="adicionarCards"> ➕ Adicionar cards</button>`;
@@ -65,7 +64,6 @@ const cards = {
         let cardsFunction = Array.from(document.getElementsByClassName("cards-format"));
         cardsFunction.forEach((card) => {
             card.addEventListener("click", async (event) => {
-                event.stopPropagation();
                 event.stopImmediatePropagation();
 
 
@@ -97,15 +95,22 @@ const cards = {
                         document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
                     }
 
-                } else {
+                }
+                else if (event.target.classList.contains("cards-format") && !event.target.classList.contains("positionAbsoluteCard")) {
                     // event.target.childNodes[1].classList.remove("displayNone");
                     // event.target.childNodes[1].classList.add("displayFlex");
                     event.target.classList.add("positionAbsoluteCard");
                     await coments.addComments(event.target.getAttribute("card_id"));
+                    // console.log(await tags.getTags(getToken(), event.target.getAttribute("card_id")));
+                    console.log(await members.getMembers(getToken(), event.target.getAttribute("card_id")));
+                    await tags.addTags(event.target.getAttribute("card_id"));
+                    await members.addMembers(event.target.getAttribute("card_id"));
                     // console.log(event.target.childNodes[3])
+                    coments.eventAddComment();
                 }
             })
         })
+
 
         return cardsContent;
 

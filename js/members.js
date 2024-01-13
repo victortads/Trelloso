@@ -1,8 +1,31 @@
+import propagation from "./stop_propagation.js";
 import getToken from "./token.js";
 
-const coments = {
-    addComments: async function (card_id) {
-        
+const members = {
+    addMembers: async function (card_id) {
+        let members = await this.getMembers(getToken(), card_id);
+
+        let membersContent = '<div class="div-members displayFlex">';
+        members.forEach((member => {
+            if(member.avatar_url === null){
+                member.avatar_url = "";
+            }
+            membersContent += 
+            `<div member_id="${member.id}" class="member-format displayFlex">
+                <h3> ${member.name} </h3>
+                <img class="member-img" src="${member.avatar_url}" alt="Imagem do usuário"/>
+            </div>`;
+        }));
+
+        membersContent += "</div>";
+
+        const cardsFormatElement = document.querySelector(`[card_id="${card_id}"]`);
+
+        if (cardsFormatElement && cardsFormatElement.classList.contains("cards-format")) {
+            cardsFormatElement.innerHTML += membersContent;
+        }
+        propagation.stopPropagation(".div-members")
+        return membersContent;
 
     },
     getMembers: async function (token, card_id) {
@@ -24,4 +47,4 @@ const coments = {
     }
 }
 
-export default coments;
+export default members;

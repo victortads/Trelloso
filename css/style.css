@@ -16,7 +16,7 @@ body {
   line-height: 1.5;
   color: rgb(255, 255, 255);
   background-color: var(--color);
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
 }
 
@@ -25,12 +25,14 @@ li {
 }
 
 #body {
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
   display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
-    "head head head head"
-    "nav cont cont cont";
+    "head head head head head"
+    "nav cont cont cont cont";
   position: relative;
 }
 
@@ -41,16 +43,27 @@ li {
   padding: 1rem;
   grid-area: head;
   background-color: #202a38;
-  color: rgb(172, 172, 172);
+  color: rgb(255, 255, 255);
 }
 
 #nav {
   grid-area: nav;
-  padding: 2rem;
+  /* padding: 2rem; */
   background-color: #1b2430;
-  height: calc(100vh - 20%);
-  width: calc(100vw - 88vw);
-  grid-column-end: 1;
+  height: 100%;
+  /* width: calc(100vw - 88vw); */
+}
+
+#nav ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  align-items: center;
+}
+
+#nav h3{
+  margin-left: 3rem;
+  margin-bottom: 1rem;
 }
 
 #content {
@@ -223,7 +236,13 @@ fieldset {
   cursor: pointer;
 }
 
-.adicionarCards{
+.adicionarCards {
+  cursor: pointer;
+  background-color: #ffffff;
+  min-width: 20rem;
+  height: 3.5rem;
+  border: none;
+  border-radius: 0.2rem;
   cursor: pointer;
 }
 
@@ -297,6 +316,12 @@ fieldset {
 .adicionarComentario {
   margin-top: 1rem;
   cursor: pointer;
+  background-color: #ffffff;
+  min-width: 20rem;
+  height: 3.5rem;
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
 }
 
 .div-list {
@@ -309,13 +334,11 @@ fieldset {
   cursor: pointer;
   color: white;
   font-size: 1.5rem;
-  width: 10rem;
+  width: 15rem;
   padding: 1rem;
   border: none;
-  margin-top: 1rem;
   background-color: var(--color);
   transition: 0.5s;
-  border-radius: 1rem;
 }
 
 .btnNav:hover {
@@ -415,6 +438,20 @@ fieldset {
   row-gap: 1rem;
 }
 
+.div-members{
+  column-gap: 2rem;
+}
+
+.member-format{
+  flex-direction: column;
+}
+
+.member-img{
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+
 /* TERMINO FORMATAÇÃO DOS BOARDS */
 
 /* Algumas Formatações de elementos */
@@ -446,7 +483,7 @@ fieldset {
 .positionAbsolute {
   position: absolute;
   width: 105rem;
-  height: 60rem;
+  height: 54rem;
   z-index: 2;
   transition: 1s;
   overflow: auto;
