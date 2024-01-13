@@ -16,12 +16,21 @@ const cards = {
         let cards = Array.from(await this.getCards(getToken(), list_id));
         // console.log(cards);
         let cardsContent = "<ul>";
-        cards.forEach((cards => {
-            cardsContent += `<li draggable="true" card_id="${cards.id}" class="cards-format">${cards.name} <p class="removerCard">🗑️</p></li>`;
-        }));
+        // Mapeia as chamadas assíncronas para uma matriz de promessas
+        let tagPromises = cards.map(async (card) => {
+            let tagsArray = await tags.getTags(getToken(), card.id);
+            let tagsElements = tagsArray.map(tag => `<span class="tag" style="background-color: ${tag.color};">${tag.name}</span>`).join('');
+            return `<li draggable="true" card_id="${card.id}" class="cards-format">${card.name}
+                <p class="removerCard">🗑️</p>
+                <div class="displayFlex tags-container">${tagsElements}</div>
+            </li>`;
+        });
 
-        cardsContent += `</ul> <button class="adicionarCards"> ➕ Adicionar cards</button>`;
-        const listsFormatElement = document.querySelector(`[list_id="${list_id}"]`);
+        let resolvedTags = await Promise.all(tagPromises);
+
+        cardsContent += resolvedTags.join('') + '</ul><button class="adicionarCards"> ➕ Adicionar cards</button>';
+
+        const listsFormatElement = document.querySelector(`[list_id = "${list_id}"]`);
 
         let id = await lista.getList(getToken(), list_id);
         if (listsFormatElement) {
@@ -71,6 +80,8 @@ const cards = {
                 // console.log(event.target.childNodes);
 
                 if (event.target.classList.contains("positionAbsoluteCard")) {
+                    const cardId = event.target.getAttribute("card_id");
+                    const listId = (await this.readCard(getToken(), cardId)).list_id;
                     let cardName = event.target.childNodes[0].textContent;
                     console.log(cardName)
                     event.target.childNodes[3].classList.remove("displayOn");
@@ -94,7 +105,7 @@ const cards = {
                         document.querySelector("#div-adicionar-comentario").classList.remove("displayOn");
                         document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
                     }
-
+                    await this.addCards(listId);
                 }
                 else if (event.target.classList.contains("cards-format") && !event.target.classList.contains("positionAbsoluteCard")) {
                     // event.target.childNodes[1].classList.remove("displayNone");

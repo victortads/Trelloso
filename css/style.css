@@ -61,7 +61,7 @@ li {
   align-items: center;
 }
 
-#nav h3{
+#nav h3 {
   margin-left: 3rem;
   margin-bottom: 1rem;
 }
@@ -438,15 +438,15 @@ fieldset {
   row-gap: 1rem;
 }
 
-.div-members{
+.div-members {
   column-gap: 2rem;
 }
 
-.member-format{
+.member-format {
   flex-direction: column;
 }
 
-.member-img{
+.member-img {
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
@@ -498,5 +498,15 @@ fieldset {
   overflow: auto;
 }
 
+.tags-container {
+  column-gap: 1px;
+}
+
+.tag {
+  padding: 2px;
+  text-transform: uppercase;
+  color: black;
+  font-weight: 700;
+}
 
 /* TERMINO FORMATAÇÃO DAS CLASSES DE CONTROLE DE EXIBIÇÃO */

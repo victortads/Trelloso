@@ -1,3 +1,4 @@
+import cards from "./cards.js";
 import getToken from "./token.js";
 
 const tags = {
@@ -101,6 +102,7 @@ const tags = {
         const selecionado = document.querySelectorAll(".tag");
         selecionado.forEach((el) => {
             el.addEventListener("change", async (event) => {
+                // console.log(event.target.parentNode.parentNode.getAttribute("tags_card"))
                 const cardId = event.target.parentNode.parentNode.getAttribute("tags_card");
                 const tagId = event.target.parentNode.getAttribute("tag_id");
                 if (el.checked) {  // criar tag
