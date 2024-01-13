@@ -107,6 +107,7 @@ const cards = {
                     await members.addMembers(event.target.getAttribute("card_id"));
                     // console.log(event.target.childNodes[3])
                     coments.eventAddComment();
+                    tags.eventChangeInput()
                 }
             })
         })
