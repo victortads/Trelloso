@@ -19,10 +19,8 @@ async function updtCd(card_id, list_id) {
         position: 0
     }
     await cards.updateCard(getToken(), card_id, data);
-    // console.log(data);
     let board = await lista.getList(getToken(), list_id);
     let element = document.getElementById(`${board.board_id}`).children[1];
-    // console.log(board.board_id, element)
     await addLists(board.board_id, element);
 }
 const cards = {
@@ -84,7 +82,6 @@ const cards = {
             })
         })
         const lists = document.querySelectorAll('.lists-format');
-        console.log(lists)
         lists.forEach(list => {
             list.addEventListener('dragover', function (event) {
                 event.stopImmediatePropagation();
@@ -98,7 +95,6 @@ const cards = {
             });
             list.addEventListener('drop', function (event) {
                 event.stopImmediatePropagation();
-                // console.log(this)
                 this.classList.remove('over');
             });
         });
@@ -111,25 +107,17 @@ const cards = {
                 event.stopImmediatePropagation();
                 lists.forEach(list => list.classList.remove('highlight'));
                 this.classList.remove('dragging');
-                console.log("Terminou de mover");
-                console.log(this.getAttribute("card_id"));
-                console.log(this.parentElement.getAttribute("list_id"));
-                updtCd(this.getAttribute("card_id"),this.parentElement.getAttribute("list_id"));
+                updtCd(this.getAttribute("card_id"), this.parentElement.getAttribute("list_id"));
             });
 
             card.addEventListener('dragstart', function (event) {
                 event.stopImmediatePropagation();
                 lists.forEach(list => list.classList.add('highlight'));
                 this.classList.add('dragging');
-                console.log("MOVENDO");
             });
 
             card.addEventListener("click", async (event) => {
                 event.stopImmediatePropagation();
-
-
-                // console.log(event.target.classList);
-                // console.log(event.target.childNodes);
 
                 if (event.target.classList.contains("positionAbsoluteCard")) {
                     const cardId = event.target.getAttribute("card_id");
@@ -163,32 +151,28 @@ const cards = {
                     // event.target.childNodes[1].classList.add("displayFlex");
                     event.target.classList.add("positionAbsoluteCard");
                     await coments.addComments(event.target.getAttribute("card_id"));
-                    // console.log(await tags.getTags(getToken(), event.target.getAttribute("card_id")));
-                    console.log(await members.getMembers(getToken(), event.target.getAttribute("card_id")));
                     await tags.addTags(event.target.getAttribute("card_id"));
                     await members.addMembers(event.target.getAttribute("card_id"));
-                    // console.log(event.target.childNodes[3])
                     coments.eventAddComment();
                     tags.eventChangeInput()
                 }
+
+                const btnRmCard = Array.from(document.getElementsByClassName("removerCard"));
+                btnRmCard.forEach((button) => {
+                    button.addEventListener("click", async (event) => {
+                        event.stopImmediatePropagation();
+                        let cardId = (event.target.parentNode.getAttribute("card_id"));
+                        let listaId = await this.readCard(getToken(), cardId);
+                        let board = await lista.getList(getToken(), listaId.list_id);
+                        let element = document.getElementById(`${board.board_id}`).children[1];
+                        await this.deleteCard(getToken(), cardId)
+                        await addLists(board.board_id, element);
+
+                    })
+                })
             })
         })
 
-
-        const btnRmCard = Array.from(document.getElementsByClassName("removerCard"));
-        btnRmCard.forEach((button) => {
-            button.addEventListener("click", async (event) => {
-                event.stopImmediatePropagation();
-                let cardId = (event.target.parentNode.getAttribute("card_id"));
-                let listaId = await this.readCard(getToken(), cardId);
-                let board = await lista.getList(getToken(), listaId.list_id);
-                let element = document.getElementById(`${board.board_id}`).children[1];
-                // console.log(document.getElementById(`${board.board_id}`).children[1]);
-                await this.deleteCard(getToken(), cardId)
-                await addLists(board.board_id, element);
-
-            })
-        })
         return cardsContent;
 
     },

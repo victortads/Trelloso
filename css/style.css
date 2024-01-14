@@ -76,8 +76,8 @@ li {
 }
 
 #div-user img {
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
 }
 
 #format-user {
@@ -233,7 +233,16 @@ fieldset {
   height: 3.5rem;
   border: none;
   border-radius: 0.2rem;
+  transition: 0.5s ease-in-out;
   cursor: pointer;
+}
+
+.adicionarLista:hover {
+  -xpedu-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  transition: 0.5s ease-in-out;
+  background-color: #bedcff;
 }
 
 .adicionarCards {
@@ -244,10 +253,33 @@ fieldset {
   border: none;
   border-radius: 0.2rem;
   cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+
+.adicionarCards:hover {
+  -xpedu-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  transition: 0.5s ease-in-out;
+  background-color: #bedcff;
 }
 
 .comment-format {
-  background-color: #f1f1f1;
+  color: black;
+  background-color: #aae0ff;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  font-weight: 700;
+  font-size: medium;
+  transition: 0.5s;
+}
+
+.comment-format:hover {
+  -xpedu-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
+  background-color: #b9e3fc;
+  transition: 0.5s;
 }
 
 /* FORMATAÇÃO INPUT E CAMPOS FORM */
@@ -322,6 +354,14 @@ fieldset {
   border: none;
   border-radius: 0.2rem;
   cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+
+.adicionarComentario:hover {
+  -xpedu-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  transition: 0.5s ease-in-out;
 }
 
 .div-list {
@@ -425,8 +465,8 @@ fieldset {
 }
 
 .cards-format {
-  background-color: #98abc5;
-  color: black;
+  background-color: #6f8fbb;
+  color: white;
   min-width: 15rem;
   padding: 1rem;
   border-radius: 0.4rem;
@@ -444,6 +484,7 @@ fieldset {
 
 .member-format {
   flex-direction: column;
+  align-items: center;
 }
 
 .member-img {
@@ -502,11 +543,27 @@ fieldset {
   column-gap: 1px;
 }
 
+.tagsContent {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  column-gap: 1rem;
+  text-transform: capitalize;
+}
+
 .tag {
   padding: 2px;
   text-transform: uppercase;
   color: black;
   font-weight: 700;
+  transition: 0.5s ease-in-out;
+}
+
+.tag:hover {
+  -xpedu-transform: scale(2);
+  -ms-transform: scale(2);
+  transform: scale(2);
+  border: none;
+  transition: 0.5s ease-in-out;
 }
 
 .highlight {
