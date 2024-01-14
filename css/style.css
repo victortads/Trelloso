@@ -509,4 +509,16 @@ fieldset {
   font-weight: 700;
 }
 
+.highlight {
+  background-color: #22222211;
+}
+
+.over {
+  background-color: rgba(0, 128, 0, 0.2);
+}
+
+.dragging {
+  opacity: 0.3;
+}
+
 /* TERMINO FORMATAÇÃO DAS CLASSES DE CONTROLE DE EXIBIÇÃO */

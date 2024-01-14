@@ -4,13 +4,28 @@ import lista from "./lista.js";
 import tags from "./tags.js";
 import propagation from "./stop_propagation.js";
 import members from "./members.js";
+import { addLists } from "./quadros.js";
 
 let boardId = "";
-
+let cardsFunction;
+async function updtCd(card_id, list_id) {
+    let rCard = await cards.readCard(getToken(), card_id);
+    const dataAtual = new Date();
+    const dataFormatada = dataAtual.toISOString();
+    let data = {
+        name: rCard.name,
+        date: dataFormatada,
+        list_id: list_id,
+        position: 0
+    }
+    await cards.updateCard(getToken(), card_id, data);
+    // console.log(data);
+    let board = await lista.getList(getToken(), list_id);
+    let element = document.getElementById(`${board.board_id}`).children[1];
+    // console.log(board.board_id, element)
+    await addLists(board.board_id, element);
+}
 const cards = {
-    addCardsOption: async function () {
-
-    },
     addCards: async function (list_id) {
 
         let cards = Array.from(await this.getCards(getToken(), list_id));
@@ -39,7 +54,6 @@ const cards = {
         }
         lista.eventEditList();
         await lista.deleteListButton()
-        propagation.stopPropagation(".removerCard");
         const btnaddCard = Array.from(document.getElementsByClassName("adicionarCards"));
         btnaddCard.forEach((element) => {
             element.addEventListener("click", (event) => {
@@ -69,9 +83,47 @@ const cards = {
 
             })
         })
+        const lists = document.querySelectorAll('.lists-format');
+        console.log(lists)
+        lists.forEach(list => {
+            list.addEventListener('dragover', function (event) {
+                event.stopImmediatePropagation();
+                this.classList.add('over');
+                const cardBeingDragged = document.querySelector('.dragging');
+                this.appendChild(cardBeingDragged);
+            });
+            list.addEventListener('dragleave', function (event) {
+                event.stopImmediatePropagation();
+                this.classList.remove('over');
+            });
+            list.addEventListener('drop', function (event) {
+                event.stopImmediatePropagation();
+                // console.log(this)
+                this.classList.remove('over');
+            });
+        });
 
-        let cardsFunction = Array.from(document.getElementsByClassName("cards-format"));
+
+        cardsFunction = Array.from(document.getElementsByClassName("cards-format"));
         cardsFunction.forEach((card) => {
+
+            card.addEventListener('dragend', async function (event) {
+                event.stopImmediatePropagation();
+                lists.forEach(list => list.classList.remove('highlight'));
+                this.classList.remove('dragging');
+                console.log("Terminou de mover");
+                console.log(this.getAttribute("card_id"));
+                console.log(this.parentElement.getAttribute("list_id"));
+                updtCd(this.getAttribute("card_id"),this.parentElement.getAttribute("list_id"));
+            });
+
+            card.addEventListener('dragstart', function (event) {
+                event.stopImmediatePropagation();
+                lists.forEach(list => list.classList.add('highlight'));
+                this.classList.add('dragging');
+                console.log("MOVENDO");
+            });
+
             card.addEventListener("click", async (event) => {
                 event.stopImmediatePropagation();
 
@@ -88,7 +140,6 @@ const cards = {
                     event.target.childNodes[3].classList.add("displayNone");
 
                     event.target.innerHTML = `${cardName} <p class="removerCard">🗑️</p>`;
-                    propagation.stopPropagation(".removerCard")
 
                     event.target.classList.remove("positionAbsoluteCard");
                     if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
@@ -124,6 +175,20 @@ const cards = {
         })
 
 
+        const btnRmCard = Array.from(document.getElementsByClassName("removerCard"));
+        btnRmCard.forEach((button) => {
+            button.addEventListener("click", async (event) => {
+                event.stopImmediatePropagation();
+                let cardId = (event.target.parentNode.getAttribute("card_id"));
+                let listaId = await this.readCard(getToken(), cardId);
+                let board = await lista.getList(getToken(), listaId.list_id);
+                let element = document.getElementById(`${board.board_id}`).children[1];
+                // console.log(document.getElementById(`${board.board_id}`).children[1]);
+                await this.deleteCard(getToken(), cardId)
+                await addLists(board.board_id, element);
+
+            })
+        })
         return cardsContent;
 
     },

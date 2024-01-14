@@ -46,6 +46,11 @@ export async function exibirBoard() {
         event.target.classList.add("positionAbsolute");
         // console.log(event.target.childNodes[3])
         await addLists(event.target.id, event.target.childNodes[3]);
+        
+        
+       
+        
+        
       }
 
       // console.log("Disparou o elemento: ", event.target.childNodes[3]); // div com as listas salvo
@@ -222,11 +227,12 @@ export async function addLists(board_id, element) {
       element.innerHTML = div_listas
       element.innerHTML += `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
       await cards.addCards(list.id);
+      
     })
   } else {
     element.innerHTML = `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
   }
-
+  
   propagation.stopPropagation('.lists-format');
   lista.addLista();
 
@@ -322,3 +328,4 @@ formBoard.addEventListener("submit", async (event) => {
     console.error("Error:", error);
   }
 });
+

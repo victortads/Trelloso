@@ -47,6 +47,7 @@ const lista = {
 
 
         propagation.stopPropagation("form-lista")
+        
       });
     });
   },
