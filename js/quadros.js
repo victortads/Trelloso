@@ -24,6 +24,8 @@ export async function exibirBoard() {
       if (event.target.classList.contains("positionAbsolute")) {
         event.target.childNodes[3].classList.remove("displayFlex");
         event.target.childNodes[3].classList.add("displayNone");
+        event.target.classList.add("salting");
+        // console.log(event.target.classList)
         event.target.classList.remove("positionAbsolute");
         if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
           document.getElementById("div-adicionar-lista").classList.remove("displayOn");
@@ -41,16 +43,13 @@ export async function exibirBoard() {
         }
 
       } else {
+        event.target.classList.remove("salting");
         event.target.childNodes[3].classList.remove("displayNone");
         event.target.childNodes[3].classList.add("displayFlex");
         event.target.classList.add("positionAbsolute");
         // console.log(event.target.childNodes[3])
+        // console.log(event.target.classList)
         await addLists(event.target.id, event.target.childNodes[3]);
-        
-        
-       
-        
-        
       }
 
       // console.log("Disparou o elemento: ", event.target.childNodes[3]); // div com as listas salvo
@@ -118,7 +117,7 @@ export default async function addBoards() {
       favorito = "false";
     }
     div_board += `
-    <div id="${element.id}" favorito="${favorito}" class="boards-format displayFlex" style="background-color: ${element.color};">
+    <div id="${element.id}" favorito="${favorito}" class="boards-format displayFlex salting" style="background-color: ${element.color};">
     <div class="board-header displayFlex">    
     <p contenteditable="true" class="board-name">${element.name}</p>
         <p class="starEmpty ${starEmpty}">✩</p>
@@ -227,12 +226,12 @@ export async function addLists(board_id, element) {
       element.innerHTML = div_listas
       element.innerHTML += `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
       await cards.addCards(list.id);
-      
+
     })
   } else {
     element.innerHTML = `<button class="adicionarLista"> ➕ Adicionar lista</button>`;
   }
-  
+
   propagation.stopPropagation('.lists-format');
   lista.addLista();
 

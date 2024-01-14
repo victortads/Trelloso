@@ -32,9 +32,8 @@ const cards = {
         // Mapeia as chamadas assíncronas para uma matriz de promessas
         let tagPromises = cards.map(async (card) => {
             let tagsArray = await tags.getTags(getToken(), card.id);
-            let tagsElements = tagsArray.map(tag => `<span class="tag" style="background-color: ${tag.color};">${tag.name}</span>`).join('');
+            let tagsElements = tagsArray.map(tag => `<span class="tag" style="background-color: ${tag.color};"></span>`).join('');
             return `<li draggable="true" card_id="${card.id}" class="cards-format">${card.name}
-                <p class="removerCard">🗑️</p>
                 <div class="displayFlex tags-container">${tagsElements}</div>
             </li>`;
         });
