@@ -33,7 +33,7 @@ const cards = {
         let tagPromises = cards.map(async (card) => {
             let tagsArray = await tags.getTags(getToken(), card.id);
             let tagsElements = tagsArray.map(tag => `<span class="tag" style="background-color: ${tag.color};"></span>`).join('');
-            return `<li draggable="true" card_id="${card.id}" class="cards-format">${card.name}
+            return `<li draggable="true" card_id="${card.id}" class="cards-format salting">${card.name}
                 <div class="displayFlex tags-container">${tagsElements}</div>
             </li>`;
         });
@@ -129,6 +129,7 @@ const cards = {
                     event.target.innerHTML = `${cardName} <p class="removerCard">🗑️</p>`;
 
                     event.target.classList.remove("positionAbsoluteCard");
+                    event.target.classList.remove("salting");
                     if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
                         document.getElementById("div-adicionar-lista").classList.remove("displayOn");
                         document.getElementById("div-adicionar-lista").classList.add("displayNone");
@@ -149,6 +150,7 @@ const cards = {
                     // event.target.childNodes[1].classList.remove("displayNone");
                     // event.target.childNodes[1].classList.add("displayFlex");
                     event.target.classList.add("positionAbsoluteCard");
+                    event.target.classList.remove("salting");
                     await coments.addComments(event.target.getAttribute("card_id"));
                     await tags.addTags(event.target.getAttribute("card_id"));
                     await members.addMembers(event.target.getAttribute("card_id"));

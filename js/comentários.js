@@ -1,5 +1,8 @@
 import cards from "./cards.js";
+import lista from "./lista.js";
+import members from "./members.js";
 import propagation from "./stop_propagation.js";
+import tags from "./tags.js";
 import getToken from "./token.js";
 
 const coments = {
@@ -37,7 +40,7 @@ const coments = {
                 await this.addComments(cardId);
             })
         })
-        
+
 
         return commentContent;
 
@@ -157,7 +160,7 @@ const coments = {
     eventAddComment: function () {
         const btnaddComment = Array.from(document.getElementsByClassName("adicionarComentario"));
         btnaddComment.forEach((element) => {
-            element.addEventListener("click", (event) => {
+            element.addEventListener("click", async (event) => {
                 event.stopImmediatePropagation();
                 // console.log("Funcionando")
                 if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
@@ -170,6 +173,7 @@ const coments = {
                     document.querySelector("#div-adicionar-card").classList.add("displayNone");
                 }
                 let cardId = event.target.parentNode.getAttribute("card_id");
+
 
                 if (document.querySelector("#div-adicionar-comentario").classList.contains("displayNone")) {
                     document.querySelector("#div-adicionar-comentario").classList.remove("displayNone");
@@ -197,6 +201,10 @@ document.querySelector("#div-adicionar-comentario").addEventListener("submit", a
     document.querySelector("#div-adicionar-comentario").classList.add("displayNone");
     // console.log("Funcionando", data.card_id)
     await coments.addComments(data.card_id);
+    await tags.addTags(data.card_id);
+    await members.addMembers(data.card_id);
+    coments.eventAddComment();
+    coments.eventEditComment();
 })
 
 export default coments;

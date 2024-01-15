@@ -429,8 +429,8 @@ fieldset {
 /* FORMATAÇÃO DOS BOARDS */
 
 #boards-content {
-  padding: 1rem;
-  gap: 2rem;
+  padding: 2rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
   position: relative;
   justify-content: space-evenly;
@@ -439,7 +439,7 @@ fieldset {
 .boards-format {
   cursor: pointer;
   padding: 1rem;
-  width: 26rem;
+  width: 24rem;
   height: 15rem;
   border-radius: 1rem;
   z-index: 1;
@@ -482,6 +482,7 @@ fieldset {
   min-width: 15rem;
   padding: 1rem;
   border-radius: 0.4rem;
+  transition: 0.5s ease-in-out;
 }
 
 .cards-format ul {
@@ -597,7 +598,7 @@ fieldset {
   -ms-transform: scale(1.3);
   transform: scale(1.3);
   z-index: 2;
-  transition: 1s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 
 /* TERMINO FORMATAÇÃO DAS CLASSES DE CONTROLE DE EXIBIÇÃO */

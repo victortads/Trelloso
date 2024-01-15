@@ -114,6 +114,7 @@ async function deleteUser(token, user_id) {
 async function readUser() {
   const result = await showMe(getToken());
   if (result.name) {
+    document.getElementById("user-show").innerHTML = "";
     let textEl = document.createTextNode(result.name);
     document.getElementById("user-show").appendChild(textEl);
 

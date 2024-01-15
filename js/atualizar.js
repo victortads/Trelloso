@@ -1,3 +1,4 @@
+import readUser from "./main.js";
 import getToken from "./token.js";
 
 let user = document.getElementById("user-show");
@@ -52,7 +53,10 @@ formAtualizar.addEventListener("submit", async (event) => {
     password: inputSenhaAtualizar.value,
   };
   let id = await getId(getToken());
-  atualizarUser(dadosMod, id, getToken());
+  await atualizarUser(dadosMod, id, getToken());
+  await readUser();
+  divAtualizar.classList.remove("displayOn");
+  divAtualizar.classList.add("displayNone")
 });
 
 // Pega id do usuário
