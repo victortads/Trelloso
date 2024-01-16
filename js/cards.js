@@ -122,7 +122,6 @@ const cards = {
                     const cardId = event.target.getAttribute("card_id");
                     const listId = (await this.readCard(getToken(), cardId)).list_id;
                     let cardName = event.target.childNodes[0].textContent;
-                    console.log(cardName)
                     event.target.childNodes[3].classList.remove("displayOn");
                     event.target.childNodes[3].classList.add("displayNone");
 
@@ -147,18 +146,17 @@ const cards = {
                     await this.addCards(listId);
                 }
                 else if (event.target.classList.contains("cards-format") && !event.target.classList.contains("positionAbsoluteCard")) {
-                    // event.target.childNodes[1].classList.remove("displayNone");
-                    // event.target.childNodes[1].classList.add("displayFlex");
                     event.target.classList.add("positionAbsoluteCard");
                     event.target.classList.remove("salting");
                     await coments.addComments(event.target.getAttribute("card_id"));
                     await tags.addTags(event.target.getAttribute("card_id"));
                     await members.addMembers(event.target.getAttribute("card_id"));
                     coments.eventAddComment();
+                    coments.eventRemoveComment()
                     tags.eventChangeInput()
                 }
 
-                const btnRmCard = Array.from(document.getElementsByClassName("removerCard"));
+                let btnRmCard = Array.from(document.getElementsByClassName("removerCard"));
                 btnRmCard.forEach((button) => {
                     button.addEventListener("click", async (event) => {
                         event.stopImmediatePropagation();
@@ -168,7 +166,6 @@ const cards = {
                         let element = document.getElementById(`${board.board_id}`).children[1];
                         await this.deleteCard(getToken(), cardId)
                         await addLists(board.board_id, element);
-
                     })
                 })
             })

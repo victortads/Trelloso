@@ -29,18 +29,7 @@ const coments = {
         cards.eventEditCard();
         this.eventEditComment();
 
-        const btnRmComentario = Array.from(document.getElementsByClassName("removerComentario"));
-        btnRmComentario.forEach((button) => {
-            button.addEventListener("click", async (event) => {
-                let id = event.target.parentNode.getAttribute("comment_id");
-                let cardId = (await this.readComment(getToken(), id)).card_id;
-                console.log(id);
-                console.log(event.target);
-                await this.deleteComment(getToken(), id)
-                await this.addComments(cardId);
-            })
-        })
-
+        
 
         return commentContent;
 
@@ -187,6 +176,20 @@ const coments = {
 
             })
         })
+    },
+    eventRemoveComment: async function(){
+        let btnRmComentario = Array.from(document.getElementsByClassName("removerComentario"));
+        btnRmComentario.forEach((button) => {
+            button.addEventListener("click", async (event) => {
+                let id = event.target.parentNode.getAttribute("comment_id");
+                let cardId = (await this.readComment(getToken(), id)).card_id;
+                await this.deleteComment(getToken(), id)
+                await this.addComments(cardId);
+                await tags.addTags(cardId);
+                await members.addMembers(cardId);
+            })
+        })
+
     }
 }
 document.querySelector("#div-adicionar-comentario").addEventListener("submit", async (event) => {
