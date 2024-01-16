@@ -153,7 +153,7 @@ const cards = {
                     await members.addMembers(event.target.getAttribute("card_id"));
                     coments.eventAddComment();
                     coments.eventRemoveComment()
-                    tags.eventChangeInput()
+                    tags.eventChangeInput();
                 }
 
                 let btnRmCard = Array.from(document.getElementsByClassName("removerCard"));

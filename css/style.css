@@ -594,9 +594,9 @@ fieldset {
 }
 
 .salting:hover {
-  -xpedu-transform: scale(1.3);
-  -ms-transform: scale(1.3);
-  transform: scale(1.3);
+  -xpedu-transform: scale(1.15);
+  -ms-transform: scale(1.15);
+  transform: scale(1.15);
   z-index: 2;
   transition: 0.5s ease-in-out;
 }

@@ -29,7 +29,7 @@ const coments = {
         cards.eventEditCard();
         this.eventEditComment();
 
-        
+
 
         return commentContent;
 
@@ -151,7 +151,6 @@ const coments = {
         btnaddComment.forEach((element) => {
             element.addEventListener("click", async (event) => {
                 event.stopImmediatePropagation();
-                // console.log("Funcionando")
                 if (document.getElementById("div-adicionar-lista").classList.contains("displayOn")) {
                     document.getElementById("div-adicionar-lista").classList.remove("displayOn");
                     document.getElementById("div-adicionar-lista").classList.add("displayNone");
@@ -163,7 +162,6 @@ const coments = {
                 }
                 let cardId = event.target.parentNode.getAttribute("card_id");
 
-
                 if (document.querySelector("#div-adicionar-comentario").classList.contains("displayNone")) {
                     document.querySelector("#div-adicionar-comentario").classList.remove("displayNone");
                     document.querySelector("#div-adicionar-comentario").classList.add("displayOn");
@@ -173,11 +171,10 @@ const coments = {
                 }
 
                 document.getElementById("input-comentario-id").value = cardId;
-
             })
         })
     },
-    eventRemoveComment: async function(){
+    eventRemoveComment: async function () {
         let btnRmComentario = Array.from(document.getElementsByClassName("removerComentario"));
         btnRmComentario.forEach((button) => {
             button.addEventListener("click", async (event) => {
@@ -187,6 +184,9 @@ const coments = {
                 await this.addComments(cardId);
                 await tags.addTags(cardId);
                 await members.addMembers(cardId);
+                this.eventAddComment();
+                this.eventEditComment();
+                tags.eventChangeInput();
             })
         })
 
@@ -208,6 +208,9 @@ document.querySelector("#div-adicionar-comentario").addEventListener("submit", a
     await members.addMembers(data.card_id);
     coments.eventAddComment();
     coments.eventEditComment();
+    coments.eventRemoveComment();
+    tags.eventChangeInput();
+    document.getElementById("input-comentario-nome").value = "";
 })
 
 export default coments;
